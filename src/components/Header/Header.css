@@ -2,22 +2,22 @@
 .header__page {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  /* width: 100%;
-  margin: 0 auto; */
-  padding: 0 70px;
+  align-items: center;
+  max-width: 100%;
+  /* margin: 0 auto; */
+  padding: 18px 70px;
   border: red 1px solid;
 }
 
 @media screen and (max-width:1023px) {
-  .page__header {
+  .header__page {
     padding-left: 30px;
     padding-right: 30px;
   }
 }
 
 @media screen and (max-width:767px) {
-  .page__header {
+  .header__page {
     padding-left: 14px;
     padding-right: 14px;
   }

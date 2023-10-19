@@ -1,0 +1,8 @@
+.header__logo-home{
+  display:block;
+  background-image: url(../../images/logo.svg);
+  margin: 0;
+  width: 38px;
+  height: 38px;
+  transition: opacity .3s linear;
+}
