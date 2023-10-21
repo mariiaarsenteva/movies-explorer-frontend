@@ -18,8 +18,8 @@ export default function AboutProject() {
          </div>
          <div>
             <div className='about__timeline'>
-               <div className='about__weeks'>1 неделя</div>
-               <div className='about__weeks'>4 недели</div>
+               <div className='about__progress'>1 неделя</div>
+               <div className='about__progress'>4 недели</div>
             </div>
             <div className='about__caption-container'>
                <div className='about__caption'>Back-end</div>
