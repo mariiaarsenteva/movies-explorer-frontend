@@ -3,8 +3,7 @@ import "./Logo.css";
 
 export default function Logo (){
   return (
-    <Link to="/">
-      <div className="header__logo-home" alt='Логотип'> </div>
-    </Link>
+
+    <Link to="/" className="header__logo-home"/>
   )
 }

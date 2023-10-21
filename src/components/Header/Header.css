@@ -4,8 +4,9 @@
   justify-content: space-between;
   align-items: center;
   max-width: 100%;
-  /* margin: 0 auto; */
-  padding: 18px 70px;
+  margin: 0;
+  padding: 0;
+  padding: 18px 67px;
   border: red 1px solid;
 }
 
