@@ -2,11 +2,11 @@
   display: flex;
   list-style: none;
   align-items: center;
-  padding-top: 21px 0 0 0;
+  padding: 0;
   margin: 0;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .header__links-container {
     padding: 0 auto;
   }
@@ -21,9 +21,16 @@
   margin-right: 30px;
   text-decoration: none;
   transition: opacity 0.3s linear;
+
 }
 
 @media screen and (max-width: 768px) {
+  .header__signup {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 520px) {
   .header__signup {
     margin-right: 14px;
     font-size: 10px;
@@ -50,11 +57,17 @@
 }
 
 @media screen and (max-width: 768px) {
-  .header__signup {
-    width: 54px;
-    min-height: 26px;
+  .header__signin {
+    max-width: 54px;
+    max-height: 26px;
     font-size: 10px;
     padding-top: 4px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .header__signin {
+    font-size: 10px;
   }
 }
 

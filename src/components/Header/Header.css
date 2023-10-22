@@ -5,21 +5,19 @@
   align-items: center;
   max-width: 100%;
   margin: 0;
-  padding: 0;
   padding: 18px 67px;
   border: red 1px solid;
 }
 
 @media screen and (max-width:1023px) {
   .header__page {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 18px 30px;
   }
 }
 
 @media screen and (max-width:767px) {
   .header__page {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding: 18px 14px;
+
   }
 }
