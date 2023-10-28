@@ -6,7 +6,7 @@ import Logo from '../Logo/Logo'
 export default function Header({ loggedIn }) {
 
   return (
-    <header className={`header header__page`}>
+    <header className={`header`}>
 
       <Link to="/">
         <Logo />

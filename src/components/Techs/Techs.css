@@ -5,14 +5,15 @@
 
 }
 @media screen and (max-width: 768px) {
-  .page__techs {
+  .techs {
     padding:90px 0;
   }
 }
 
 @media screen and (max-width: 520px) {
-  .page__techs {
+  .techs {
     padding:70px 0;
+    background: #FFF;
   }
 }
 
@@ -25,8 +26,8 @@
   letter-spacing: -0.88px;
   border-bottom: #000;
   padding-bottom: 23px;
-  margin-bottom:90px;
-  border-bottom: 1px solid #DADADA;
+  margin:0 0 90px 0;
+  border-bottom: 1px solid #000;
 }
 
 @media screen and (max-width: 768px) {
@@ -108,17 +109,20 @@ margin-bottom: 26px;
   list-style: none;
   grid-template-columns: repeat(auto-fit, 90px);
   gap: 10px;
+  max-width: 690px;
 }
 @media screen and (max-width: 768px) {
   .techs__items {
     grid-template-columns: repeat(auto-fit, 84px);
+    max-width: 648px;
   }
 }
 
 @media screen and (max-width: 520px) {
   .techs__items {
-  max-width: calc(100% - 142px);
-    grid-template-columns: repeat(auto-fit, 84px);
+  max-width: calc(100% - 106px);
+  max-width: 178px;
+    
   }
 }
 
@@ -133,6 +137,7 @@ font-size: 14px;
 font-weight: 400;
 letter-spacing: -0.56px;
 padding: 21px 0;
+margin:0;
 
 }
 

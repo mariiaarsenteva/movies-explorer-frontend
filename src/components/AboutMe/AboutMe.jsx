@@ -5,11 +5,11 @@ import Wrapper from "../Wrapper/Wrapper"
 
 export default function AboutMe () {
   return (
-    <section className="aboutme page__aboutme">
+    <section className="aboutme">
       <Wrapper>
         <h2 className="aboutme__title">Студент</h2>
         <div className="aboutme__container">
-          <div className="aboutme__resume-container">
+          <div className="aboutme__resume">
             <h3 className="aboutme__name">Виталий</h3>
             <p className="aboutme__job">Фронтенд-разработчик, 30 лет</p>
             <p className="aboutme__description">Я&nbsp;родился и&nbsp;живу в&nbsp;Саратове,

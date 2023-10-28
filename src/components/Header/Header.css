@@ -1,5 +1,5 @@
 
-.header__page {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,13 +9,13 @@
 }
 
 @media screen and (max-width:1023px) {
-  .header__page {
+  .header {
     padding: 18px 30px;
   }
 }
 
 @media screen and (max-width:767px) {
-  .header__page {
+  .header{
     padding: 18px 14px;
 
   }
