@@ -1,4 +1,4 @@
-// import Footer from "./Footer/Footer.jsx";
+import Footer from "./Footer/Footer.jsx";
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import React, { useState } from "react";
@@ -29,7 +29,7 @@ export default function App() {
           <>
             <Header name="home" loggedIn={loggedIn} />
             <Main name="home" />
-            {/* <Footer /> */}
+            <Footer />
           </>
         } />
 
@@ -37,7 +37,7 @@ export default function App() {
           <>
             <Header />
             <Main name="movies" />
-            {/* <Footer /> */}
+            <Footer />
           </>
         } />
 
@@ -45,7 +45,7 @@ export default function App() {
           <>
             <Header />
             <Main name="savedmovies" />
-            {/* <Footer /> */}
+            <Footer />
           </>
         } />
 
@@ -53,7 +53,7 @@ export default function App() {
           <>
             <Header />
             <Main name="profile" setLoggedIn={setLoggedIn} />
-            {/* <Footer /> */}
+            <Footer />
           </>
         } />
 
