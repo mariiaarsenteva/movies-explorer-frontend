@@ -58,7 +58,6 @@
 .portfolio__link_last-of-type {
   margin-bottom: 0;
   border-style: none;
-  
 }
 
 .portfolio__subtitle {
@@ -89,11 +88,11 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .portfolio__button:hover {
-      opacity: .7;
-      cursor: pointer;
-    }
+  .portfolio__button:hover {
+    opacity: 0.7;
+    cursor: pointer;
   }
+}
 
 .portfolio__button {
   background-image: url(../../images/strelka.svg);
@@ -125,8 +124,8 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .portfolio__button:hover {
-      opacity: .7;
-      cursor: pointer;
-    }
+  .portfolio__button:hover {
+    opacity: 0.7;
+    cursor: pointer;
   }
+}

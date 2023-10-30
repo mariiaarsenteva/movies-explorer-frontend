@@ -1,23 +1,22 @@
-.techs{
-  background: #F5F5F5;
+.techs {
+  background: #f5f5f5;
   width: 100%;
-  padding:100px 0;
-
+  padding: 100px 0;
 }
 @media screen and (max-width: 768px) {
   .techs {
-    padding:90px 0;
+    padding: 90px 0;
   }
 }
 
 @media screen and (max-width: 520px) {
   .techs {
-    padding:70px 0;
-    background: #FFF;
+    padding: 70px 0;
+    background: #fff;
   }
 }
 
-.techs__title{
+.techs__title {
   color: #000;
   font-family: Inter;
   font-size: 22px;
@@ -26,7 +25,7 @@
   letter-spacing: -0.88px;
   border-bottom: #000;
   padding-bottom: 23px;
-  margin:0 0 90px 0;
+  margin: 0 0 90px 0;
   border-bottom: 1px solid #000;
 }
 
@@ -45,15 +44,15 @@
   }
 }
 
-.techs__subtitle{
+.techs__subtitle {
   color: #000;
-text-align: center;
-font-family: Inter;
-font-size: 50px;
-font-weight: 400;
-line-height: 58px; /* 116% */
-letter-spacing: -2px;
-margin-bottom: 26px;
+  text-align: center;
+  font-family: Inter;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px; /* 116% */
+  letter-spacing: -2px;
+  margin-bottom: 26px;
 }
 
 @media screen and (max-width: 768px) {
@@ -71,7 +70,7 @@ margin-bottom: 26px;
   }
 }
 
-.techs__description{
+.techs__description {
   color: #000;
   text-align: center;
   font-family: Inter;
@@ -101,7 +100,7 @@ margin-bottom: 26px;
     max-width: 100%;
   }
 }
-.techs__items{
+.techs__items {
   display: grid;
   justify-content: center;
   margin: 0 auto;
@@ -120,25 +119,22 @@ margin-bottom: 26px;
 
 @media screen and (max-width: 520px) {
   .techs__items {
-  max-width: calc(100% - 106px);
-  max-width: 178px;
-    
+    max-width: calc(100% - 106px);
+    max-width: 178px;
   }
 }
 
-
-.techs__item{
+.techs__item {
   border-radius: 10px;
-background: #E8E8E8;
-color: #000;
-text-align: center;
-font-family: Inter;
-font-size: 14px;
-font-weight: 400;
-letter-spacing: -0.56px;
-padding: 21px 0;
-margin:0;
-
+  background: #e8e8e8;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+  padding: 21px 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 768px) {

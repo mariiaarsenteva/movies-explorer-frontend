@@ -1,8 +1,9 @@
 import "./Navigation.css";
-import { Link, NavLink } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Navigation({ name, loggedIn }) {
+  const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false);
 
   function handelClick() {
@@ -28,8 +29,9 @@ export default function Navigation({ name, loggedIn }) {
 
   return (
     <>
-      {!loggedIn ? (
-        <nav>
+
+      {name === 'home' && !loggedIn ? (
+        <nav nav >
           <ul className="header__links-container">
             <li>
               <Link to='/signup' className="header__signup">Регистрация</Link>
@@ -38,36 +40,38 @@ export default function Navigation({ name, loggedIn }) {
               <Link to='/signin' className="header__signin">Войти</Link>
             </li>
           </ul>
-        </nav>
+        </nav >
       ) : (
+
         <>
-      <nav className={`header__navigation ${isOpen ? "header__navigation_open" : ""}`}>
-        <ul className="header__links-container header__links ">
-          <li className="header__links-list">
-            <NavLink to='/' className="header__link" activeClassName="header__link_active">Главная</NavLink>
-          </li>
+          <nav className={`header__navigation ${isOpen ? "header__navigation_open" : ""}`}>
+            <ul className="header__links-container header__links ">
+              <li className="header__links-list">
+                <Link to='/' className={`header__link || ${pathname !== '/' ? 'header_link_white' : ''}`} >Главная</Link>
+              </li>
 
-          <li className="header__links-list">
-            <NavLink to='/movies' className="header__link" activeClassName="header__link_active">Фильмы</NavLink>
-          </li>
+              <li className="header__links-list">
+                <Link to='/movies' className={`header__link || ${pathname !== '/' ? 'header_link_white' : ''}`} >Фильмы</Link>
+              </li>
 
-          <li className="header__links-list">
-            <NavLink to='/saved-movies' className="header__link" activeClassName="header__link_active">Сохранённые фильмы</NavLink>
-          </li>
+              <li className="header__links-list">
+                <Link to='/saved-movies' className={`header__link || ${pathname !== '/' ? 'header_link_white' : ''}`} >Сохранённые фильмы</Link>
+              </li>
 
-          <li className="header__links-list">
-            <Link to='/profile'>
-              <button className="header__link header_link_account" activeClassLink="header__link_active">Аккаунт<div className='header__account-icon'></div></button>
-            </Link>
-          </li>
-        </ul>
-        <button type='button' className='header__burger-close' onClick={handelClick}></button>
-      </nav>
-      <button type='button' className='header__burger' onClick={handelClick}></button>
+              <li className="header__links-list">
+                <Link to='/profile'>
+
+                  <button className={`header__link header_link_account || ${pathname !== '/' ? 'header_link_account_white' : ''}`} >Аккаунт<div className='header__account-icon'></div></button>
+                </Link>
+              </li>
+            </ul>
+            <button type='button' className='header__burger-close' onClick={handelClick}></button>
+          </nav>
+          <button type='button' className='header__burger' onClick={handelClick}></button>
+        </>
+      )
+      }
     </>
-  )
-}
-     </>
   )
 }
 

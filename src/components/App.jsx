@@ -1,12 +1,18 @@
 import Footer from "./Footer/Footer.jsx";
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
+import Login from "./Login/Login.jsx"
+import Register from "./Register/Register.jsx"
+import Movies from "./Movies/Movies.jsx"
+import SavedMovies from './SavedMovies/SavedMovies.jsx'
+import Profile from "./Profile/Profile.jsx"
+import Error from './Error/Error.jsx'
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "../components/App.css";
 
 export default function App() {
-  //стейт логина
+  // стейт логина
   const [loggedIn, setLoggedIn] = useState(false);
 
 
@@ -14,15 +20,15 @@ export default function App() {
     <div className="page">
       <Routes>
         <Route path="/signin"
-        element={
-          <Main name="signin" setLoggedIn={setLoggedIn} />
-        }
+          element={
+            <Login name="signin" setLoggedIn={setLoggedIn} />
+          }
         />
 
         <Route path="/signup"
-        element={
-          <Main name="signup" setLoggedIn={setLoggedIn} />
-        }
+          element={
+            <Register name="signup" setLoggedIn={setLoggedIn} />
+          }
         />
 
         <Route path="/" element={
@@ -36,7 +42,7 @@ export default function App() {
         <Route path="/movies" element={
           <>
             <Header />
-            <Main name="movies" />
+            <Movies name="movies" />
             <Footer />
           </>
         } />
@@ -44,7 +50,7 @@ export default function App() {
         <Route path="/saved-movies" element={
           <>
             <Header />
-            <Main name="savedmovies" />
+            <SavedMovies name="savedmovies" />
             <Footer />
           </>
         } />
@@ -52,14 +58,14 @@ export default function App() {
         <Route path="/prifile" element={
           <>
             <Header />
-            <Main name="profile" setLoggedIn={setLoggedIn} />
+            <Profile name="profile" setLoggedIn={setLoggedIn} />
             <Footer />
           </>
         } />
 
         <Route path='*' element={
           <>
-            <Main name='error' />
+            <Error name='error' />
           </>
         } />
 

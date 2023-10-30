@@ -1,0 +1,77 @@
+.cards {
+  padding: 60px 70px 80px;
+}
+
+@media screen and (max-width: 768px) {
+  .cards {
+    padding-top: 73px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .cards {
+    padding-top: 45Spx;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.cards__lists {
+  display: grid;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 31px;
+  grid-template-columns: repeat(auto-fit, 270px);
+  margin: 0;
+  padding: 0;
+  padding-bottom: 80px;
+  list-style: none;
+}
+
+@media screen and (max-width: 768px) {
+  .cards__lists {
+    column-gap: 30px;
+    row-gap: 35px;
+    grid-template-columns: repeat(auto-fit, 339px);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .cards__lists {
+    column-gap: 30px;
+    row-gap: 19px;
+    grid-template-columns: repeat(auto-fit, 300px);
+  }
+}
+
+.cards__button {
+  border: none;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: block;
+  margin: 50px auto 80px;
+  padding: 11px 60px 9px 60px;
+  cursor: pointer;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+@media screen and (max-width: 520px) {
+  .cards__button {
+    width: 240px;
+    height: 36px;
+  }
+}
+
+/* .cards__button_hidden {
+  visibility: hidden;  
+} */

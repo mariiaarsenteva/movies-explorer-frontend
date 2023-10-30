@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import photo from '../../images/photo.svg'
 import Wrapper from "../Wrapper/Wrapper"
 
-export default function AboutMe () {
+export default function AboutMe() {
   return (
     <section className="aboutme">
       <Wrapper>

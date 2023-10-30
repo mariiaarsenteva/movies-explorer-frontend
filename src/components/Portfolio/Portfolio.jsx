@@ -16,13 +16,13 @@ export default function Portfolio() {
               </Link>
             </li>
             <li className='portfolio__list'>
-              <Link to={'https://github.com/mariiaarsenteva/russian-travel'}  className='portfolio__link' target='_blank'>
+              <Link to={'https://github.com/mariiaarsenteva/russian-travel'} className='portfolio__link' target='_blank'>
                 <p className='portfolio__subtitle'>Адаптивный сайт</p>
                 <button type='button' className='portfolio__button'></button>
               </Link>
             </li>
             <li className='portfolio__list'>
-              <Link to={'https://github.com/mariiaarsenteva/react-mesto-auth'}  className='portfolio__link portfolio__link_last-of-type ' target='_blank'>
+              <Link to={'https://github.com/mariiaarsenteva/react-mesto-auth'} className='portfolio__link portfolio__link_last-of-type ' target='_blank'>
                 <p className='portfolio__subtitle'>Одностраничное приложение</p>
                 <button type='button' className='portfolio__button'></button>
               </Link>

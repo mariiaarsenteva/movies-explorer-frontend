@@ -7,7 +7,6 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   text-rendering: optimizeLegibility;
-  background-color: #073042;
 }
