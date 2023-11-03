@@ -6,14 +6,6 @@ export default function Navigation({ name, loggedIn }) {
   const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false);
 
-  function handelClick() {
-    if (isOpen) {
-      setIsOpen(false);
-    } else {
-      setIsOpen(true);
-    }
-  }
-
   useEffect(() => {
     function closeBurgerForResize() {
       if (document.documentElement.clientWidth > "767") {
@@ -59,15 +51,12 @@ export default function Navigation({ name, loggedIn }) {
               </li>
 
               <li className="header__links-list">
-                <Link to='/profile'>
-
-                  <button className={`header__link header_link_account || ${pathname !== '/' ? 'header_link_account_white' : ''}`} >Аккаунт<div className='header__account-icon'></div></button>
-                </Link>
+                <Link to='/profile' className={`header__account-icon || ${pathname === '/profile' ? 'header__account-icon_white' : '' }`} ></Link>
               </li>
             </ul>
-            <button type='button' className='header__burger-close' onClick={handelClick}></button>
+            <button type='button' className='header__burger-close'  ></button>
           </nav>
-          <button type='button' className='header__burger' onClick={handelClick}></button>
+          <div type='button' className={`header__burger || ${pathname !== '/' ? 'header_burger_dark' : ''}`}></div>
         </>
       )
       }

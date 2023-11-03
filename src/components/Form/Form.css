@@ -1,0 +1,79 @@
+.form {
+  display: flex;
+  width: 410px;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 520px) {
+  .form {
+    width: 260px;
+  }
+}
+
+.profile__submit {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+  margin-top: 20px;
+  padding: 0;
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+}
+@media screen and (max-width: 520px) {
+  .profile__submit {
+    font-size: 12px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .profile__submit:hover {
+    opacity: 0.7;
+  }
+}
+
+.login__submit {
+  border-radius: 3px;
+  background: #3456f3;
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  padding: 0;
+  margin-top: 125px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s linear;
+  min-height: 45px;
+}
+
+@media screen and (max-width: 520px) {
+  .login__submit {
+    font-size: 12px;
+  }
+}
+
+.login__submit_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  pointer-events: none;
+  margin-top: 125px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .login__submit:hover {
+    opacity: 0.8;
+    background-color: #3456f3;
+  }
+}

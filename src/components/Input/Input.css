@@ -1,0 +1,123 @@
+/* инпуты для логина и регистрации */
+.input_container {
+  max-width: 396px;
+  display: flex;
+  flex-direction: column;
+  
+  /* margin-bottom: 24px; */
+}
+
+.input__subtitle {
+  margin-bottom: 5px;
+  color: #a0a0a0;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.input {
+
+  background-color: transparent;
+  color: #000;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-bottom: 10px;
+  border:none;
+  outline: none;
+  max-width: 396px;
+  border-bottom: 0.1px solid #E8E8E8;;
+}
+
+
+.input:focus{
+  border-bottom: 0.1px solid #3456F3;
+}
+
+.input_invaid {
+  color: #ee3465;
+  border-bottom: 1px solid #ee3465;
+}
+
+.input__error{
+  display: block;
+  min-height: 24px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  color: #EE3465;
+
+}
+
+/* инпуты для редактирования профиля */
+.profile__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: #e8e8e8 solid 1px;
+  padding-bottom: 16px;
+  /* margin-bottom: 17px; */
+}
+
+@media screen and (max-width: 520px) {
+  .profile__container {
+    width: 260px;
+  }
+}
+.profile__container:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 192px;
+}
+
+@media screen and (max-width: 520px) {
+  .profile__container:last-of-type {
+    margin-bottom: 357px;
+  }
+}
+
+.profile__subtitle {
+  color: #000;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  max-width: 410px;
+}
+
+@media screen and (max-width: 520px) {
+  .profile__subtitle {
+    width: 260px;
+  }
+}
+.profile__input {
+  color: #000;
+  text-align: right;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  outline: none;
+}
+
+.profile__input_invaid {
+  color: #ee3465;
+  border-bottom-color: 1px solid #ee3465;
+}
+
+.profile__error{
+  display: block;
+  min-height: 17px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+  color: #EE3465;
+}

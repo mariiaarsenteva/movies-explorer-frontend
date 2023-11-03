@@ -2,7 +2,8 @@
   display: flex;
   list-style: none;
   align-items: center;
-  padding: 0;
+  /* height:32px; */
+  padding: 0px;
   margin: 0;
 }
 
@@ -96,8 +97,11 @@
 .header__links {
   display: flex;
   justify-content: flex-end;
-  text-decoration: none;
-  list-style: none;
+  /* text-decoration: none;
+  list-style: none; */
+  /* align-items: center;
+  padding: 0;
+  margin: 0; */
 }
 
 @media screen and (max-width: 768px) {
@@ -202,50 +206,29 @@
   text-decoration: underline;
 }
 
-.header_link_account {
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 18px; /* 138.462% */
-  text-decoration: none;
-  color: #fff;
-  font-family: Inter;
-  display: flex;
-  align-self: flex-end;
+
+.header__account-icon_white {
+  /* display: block;
   align-items: center;
-  border-radius: 40px;
-  background: #2be080;
-  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
-  border: none;
-}
-
-@media screen and (max-width: 768px) {
-  .header__link_account {
-    color: #000;
-    text-decoration: none;
-    font-family: Inter;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 12px; /* 92.308% */
-  }
-}
-
-.header_link_account_white {
-  background: #ffffff;
-  color: #000000;
-  text-decoration: none;
-}
-
-.header__account-icon {
-  width: 26px;
-  height: 26px;
-  flex-shrink: 0;
-  border-radius: 50px;
-  background: #f9f9f9;
-  background-image: url(../../images/account_icon.svg);
+  width: 100px;
+  height: 32px;
+  margin: 0;
   background-repeat: no-repeat;
-  background-position: center;
-  margin-right: -3px;
-  margin-left: 7px;
+  background-position: 50% 40%;
+  border:none; */
+  background-image: url(../../images/acc-white.svg);
+}
+
+.header__account-icon{
+ display: block;
+ align-items: center;
+  background-image: url(../../images/acc_green.svg);
+  width: 100px;
+  height: 32px;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+  border:none;
 }
 
 .header__burger {
@@ -294,4 +277,8 @@
     top: 15px;
     right: 14px;
   }
+}
+
+.header_burger_dark{
+  background-image: url(../../images/burger_menu_dark.svg);
 }

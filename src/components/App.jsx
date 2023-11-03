@@ -55,11 +55,11 @@ export default function App() {
           </>
         } />
 
-        <Route path="/prifile" element={
+        <Route path="/profile" element={
           <>
             <Header />
             <Profile name="profile" setLoggedIn={setLoggedIn} />
-            <Footer />
+            {/* <Footer /> */}
           </>
         } />
 
