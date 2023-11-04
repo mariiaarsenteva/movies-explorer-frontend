@@ -10,6 +10,7 @@ export default function Register() {
         type='text'
         title='Имя'
         minLength='2'
+        maxLength='40'
         placeholder='Введите ваше имя'
       />
       <Input

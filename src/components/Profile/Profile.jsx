@@ -7,22 +7,27 @@ import { Link } from 'react-router-dom'
 export default function Profile() {
 
     return (
-        <section className="profile">
-            <h2 className='profile__title'>Привет, Виталий!</h2>
-            <Form>
-                <Input
-                    name='username'
-                    type='text'
-                    title='Имя'
-                    minLength='3'
-                />
-                <Input
-                    name='email'
-                    type='email'
-                    title='E-mail'
-                />
-            </Form>
-            <Link to={'/'} className='profile__link'>Выйти из аккаунта</Link>
-        </section>
+        <main>
+            <section className="profile">
+                <h1 className='profile__title'>Привет, Виталий!</h1>
+                <Form>
+                    <Input
+                        name='username'
+                        type='text'
+                        title='Имя'
+                        minLength='3'
+                        maxLength='40'
+                        // placeholder= "Имя"/
+                    />
+                    <Input
+                        name='email'
+                        type='email'
+                        title='E-mail'
+                        // placeholder="E-mail"
+                    />
+                </Form>
+                <Link to={'/'} className='profile__link'>Выйти из аккаунта</Link>
+            </section>
+        </main>
     )
 }

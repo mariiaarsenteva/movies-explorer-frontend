@@ -18,13 +18,12 @@
 .portfolio__title {
   margin: 0 0 50px 0;
   color: #a0a0a0;
-  font-family: Inter;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px; /* 111.111% */
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .portfolio__title {
     margin: 0 0 40px 0;
     font-size: 14px;
@@ -48,11 +47,13 @@
   padding: 0 0 9px 0;
   border-bottom: 1px solid #e8e8e8;
   text-decoration: none;
+  
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .portfolio__link {
     padding-bottom: 19px;
+    /* margin-top:8px; */
   }
 }
 .portfolio__link_last-of-type {
@@ -62,7 +63,6 @@
 
 .portfolio__subtitle {
   color: #000;
-  font-family: Inter;
   font-size: 30px;
   font-style: normal;
   font-weight: 400;

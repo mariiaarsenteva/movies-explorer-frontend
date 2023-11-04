@@ -21,7 +21,6 @@
 .footer__title {
   color: #a0a0a0;
   text-align: center;
-  font-family: Inter;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -53,7 +52,6 @@
 
 .footer__copyright {
   color: #000;
-  font-family: Inter;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -84,7 +82,6 @@
   color: #000;
   text-align: right;
   margin-left: 20px;
-  font-family: Inter;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -105,4 +102,8 @@
   .footer__link:last-of-type {
     margin-bottom: 30px;
   }
+}
+
+.footer__link:hover{
+  opacity: 0.7;
 }

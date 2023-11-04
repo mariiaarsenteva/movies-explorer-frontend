@@ -18,6 +18,7 @@ export default function Login() {
                 minLength='3'
                 placeholder='Введите ваш пароль'
             />
+
         </SectionAuth>
     )
 }

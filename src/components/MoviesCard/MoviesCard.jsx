@@ -20,7 +20,7 @@ export default function MoviesCard({ name }) {
 
         <li className='movie__card'>
             <article>
-                <img src={poster} alt="#" className='movie__poster' />
+                <img src={poster} alt="постер фильма" className='movie__poster' />
                 <div className='movie__about'>
                     <div className='movie__info'>
                         <p className='movie__title'>33 слова о дизайне</p>

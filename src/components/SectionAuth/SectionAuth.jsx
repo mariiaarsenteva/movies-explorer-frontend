@@ -9,7 +9,7 @@ export default function SectionAuth ({children}) {
   return (
     <section className='login'>
       <Link to={'/'} className="login__logo"></Link>
-      <h2 className='login__title'>{pathname === '/signin' ? 'Рады видеть!' : 'Добро пожаловать!'}</h2>
+      <h1 className='login__title'>{pathname === '/signin' ? 'Рады видеть!' : 'Добро пожаловать!'}</h1>
       <Form >
         {children}
       </Form>

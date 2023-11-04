@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
   
-  /* margin-bottom: 24px; */
+ 
 }
+
 
 .input__subtitle {
   margin-bottom: 5px;
   color: #a0a0a0;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -21,7 +21,6 @@
 
   background-color: transparent;
   color: #000;
-  font-family: Inter;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -34,8 +33,19 @@
 }
 
 
+  .input_container:last-of-type {
+    margin-bottom: 70px;
+  }
+
+  @media screen and (max-width: 520px) {
+    .input_container:last-of-type {
+      margin-bottom: 90px;
+    }
+  }
+
+
 .input:focus{
-  border-bottom: 0.1px solid #3456F3;
+  outline : 0.1px solid #3456F3;
 }
 
 .input_invaid {
@@ -67,28 +77,35 @@
 @media screen and (max-width: 520px) {
   .profile__container {
     width: 260px;
+    
   }
 }
 .profile__container:last-of-type {
   border-bottom: none;
   padding-bottom: 0;
-  margin-bottom: 192px;
+  margin-bottom: 182px;
+}
+@media screen and (max-width: 768px) {
+  .profile__container:last-of-type {
+    margin-bottom: 172px;
+  }
 }
 
 @media screen and (max-width: 520px) {
   .profile__container:last-of-type {
-    margin-bottom: 357px;
+    margin-bottom: 337px;
   }
 }
 
 .profile__subtitle {
   color: #000;
-  font-family: Inter;
   font-size: 11px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   max-width: 410px;
+  padding:0;
+  margin:0;
 }
 
 @media screen and (max-width: 520px) {
@@ -99,7 +116,6 @@
 .profile__input {
   color: #000;
   text-align: right;
-  font-family: Inter;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
@@ -120,4 +136,8 @@
   font-weight: 400;
   line-height: normal;
   color: #EE3465;
+}
+
+.profile__input:focus {
+  outline: 1px solid #4285F4;
 }

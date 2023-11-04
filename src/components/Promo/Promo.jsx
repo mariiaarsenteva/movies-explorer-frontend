@@ -10,7 +10,7 @@ export default function Promo() {
       <div className="promo__container">
         <h1 className="promo__title">Учебный проект студента факультета Веб&#8209;разработки.</h1>
         <p className="promo__subtitle">Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
-        <HashLink smooth to='#aboutProject' className="promo__link">Узнать больше</HashLink>
+        <HashLink  to={'https://github.com/mariiaarsenteva/movies-explorer-frontend'} target="blank" className="promo__link">Узнать больше</HashLink>
       </div>
       <div className="promo__web-icon"></div>
 

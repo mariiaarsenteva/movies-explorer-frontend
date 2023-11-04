@@ -41,7 +41,6 @@
 
 .movie__title {
   color: #000;
-  font-family: Inter;
   font-size: 13px;
   font-style: normal;
   font-weight: 500;
@@ -53,7 +52,6 @@
 
 .movie__duration {
   color: #a0a0a0;
-  font-family: Inter;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
@@ -103,4 +101,8 @@
   border: none;
   border-radius: 36px;
   transition: opacity 0.2s linear;
+}
+
+.movie__save:hover {
+  opacity: 0.8; 
 }

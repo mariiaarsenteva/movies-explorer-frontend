@@ -1,5 +1,4 @@
 import './Form.css'
-// import Input from '../Input/Input'
 import { useLocation } from 'react-router-dom'
 
 export default function Form({ name, isValid, children }) {

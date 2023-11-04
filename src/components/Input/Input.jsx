@@ -1,16 +1,16 @@
 import './Input.css'
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-export default function Input({ isInputValid, title, name, error }) {
-    // const { pathname } = useLocation()
+export default function Input({ isInputValid, title, name, error, placeholder }) {
+    const { pathname } = useLocation()
 
 
     return (
         <>
-            {name !== 'profile' ?
+            {pathname !== '/profile' ?
                 <label className='input_container'>
                     <span className='input__subtitle'>{title}</span>
-                    <input required className={`input ${isInputValid === undefined || isInputValid ? '' : 'input_invaid'}`}
+                    <input required className={`input ${isInputValid === undefined || isInputValid ? '' : 'input_invaid'}` } placeholder={placeholder}
                     />
                     <span className='input__error'>{error}</span>
 
@@ -19,7 +19,7 @@ export default function Input({ isInputValid, title, name, error }) {
                 <>
                     <label className='profile__container'>
                         <span className='profile__subtitle'>{title}</span>
-                        <input required className={`profile__input ${isInputValid === undefined || isInputValid ? '' : 'profile__input_invaid'}`}
+                        <input required className={`profile__input ${isInputValid === undefined || isInputValid ? '' : 'profile__input_invaid'}`} 
 
                         />
                     </label>
