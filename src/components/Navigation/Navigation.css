@@ -7,6 +7,7 @@
   margin: 0;
 }
 
+
 @media screen and (max-width: 768px) {
   .header__links-container {
     padding: 0 auto;
@@ -83,6 +84,7 @@
     top: 0;
     right: 0;
     width: 0;
+    background-color: rgba(0,0,0,.3);
   }
 }
 
@@ -94,11 +96,6 @@
 .header__links {
   display: flex;
   justify-content: flex-end;
-  /* text-decoration: none;
-  list-style: none; */
-  /* align-items: center;
-  padding: 0;
-  margin: 0; */
 }
 
 @media screen and (max-width: 768px) {
@@ -153,7 +150,13 @@
 }
 
 .header__links-list:nth-of-type(3) {
-  margin-right: calc(377 / 1102 * 100%);
+  margin-right: calc(364 / 1102 * 100%);
+}
+
+@media screen and (max-width: 920px) {
+  .header__links-list:nth-of-type(3) {
+    margin-right: calc(264 / 1102 * 100%);
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -200,8 +203,11 @@
 .header__link_active {
   font-weight: 500;
   border: none;
-  text-decoration-line: underline;
-  text-underline-offset: 2px;
+  /* text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px; */
+  padding-bottom: 2px;
+  border-bottom: 2px #000 solid;
 }
 
 .header__link:hover{
@@ -220,8 +226,16 @@
   background-image: url(../../images/acc-white.svg);
 }
 
+.header__account-icon_white:hover{
+  opacity: 0.6;
+}
+
+.header__account-icon:hover{
+  opacity: 0.6;
+}
+
 .header__account-icon{
- display: block;
+  display: block;
  align-items: center;
   background-image: url(../../images/acc_green.svg);
   width: 100px;
@@ -230,6 +244,14 @@
   background-repeat: no-repeat;
   background-position: 50% 40%;
   border:none;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .header__account-icon {
+    align-self: flex-end;
+    
+  }
 }
 
 .header__burger {
@@ -243,6 +265,12 @@
   background-image: url(../../images/burger_menu.svg);
   background-color: transparent;
   background-position: center;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.header__burger:hover{
+  opacity:0.8;
 }
 
 @media screen and (max-width: 768px) {
@@ -265,9 +293,10 @@
   background-position: center;
   background-size: cover;
   transition: opacity 0.3s linear;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .header__burger-close {
     display: block;
   }
@@ -280,6 +309,9 @@
   }
 }
 
+.header__burger-close:hover{
+  opacity: 0.8;
+}
 .header__burger_dark{
   background-image: url(../../images/burger_menu_dark.svg);
 }

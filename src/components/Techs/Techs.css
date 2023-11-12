@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 520px) {
   .techs {
-    padding: 70px 0;
+    padding: 72px 0 70px 0;
     background: #fff;
   }
 }
@@ -38,7 +38,7 @@
   .techs__title {
     font-size: 18px;
     letter-spacing: -0.72px;
-    padding-bottom: 28px;
+    padding-bottom: 29px;
     margin-bottom: 60px;
   }
 }

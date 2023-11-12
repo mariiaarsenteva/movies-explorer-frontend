@@ -20,7 +20,7 @@ export default function Form({ name, isValid, children }) {
         pathname === '/signup' ?
           <>
             {/* <span className='login__error login__error_registration'>При регистрации пользователя произошла ошибка.</span> */}
-            <button type="submit" className={`login__submit ${isValid ? '' : 'login__submit_disabled'}`}>Зарегистрироваться</button>
+            <button type="submit" className={`login__submit_reg login__submit ${isValid ? '' : 'login__submit_disabled'}`}>Зарегистрироваться</button>
           </>
           :
           <>

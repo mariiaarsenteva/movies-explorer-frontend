@@ -3,7 +3,7 @@ import Wrapper from '../Wrapper/Wrapper'
 
 export default function AboutProject() {
    return (
-      <section className="about">
+      <section className="about"  id={"aboutProject"}>
          <Wrapper>
             <h2 className="about__title">О проекте</h2>
             <div className='about__container'>

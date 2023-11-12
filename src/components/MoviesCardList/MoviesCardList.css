@@ -33,7 +33,7 @@
 @media screen and (max-width: 768px) {
   .cards__lists {
     column-gap: 30px;
-    row-gap: 35px;
+    row-gap: 30px;
     grid-template-columns: repeat(auto-fit, 339px);
   }
 }
@@ -41,7 +41,7 @@
 @media screen and (max-width: 520px) {
   .cards__lists {
     column-gap: 30px;
-    row-gap: 35px;
+    row-gap: 32px;
     grid-template-columns: repeat(auto-fit, 300px);
   }
 }
@@ -55,7 +55,7 @@
   font-weight: 500;
   line-height: normal;
   display: block;
-  margin: 58px auto 80px;
+  margin: 58px auto 0;
   padding: 11px 60px 9px 60px;
   cursor: pointer;
   width: 320px;

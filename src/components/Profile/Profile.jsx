@@ -17,13 +17,13 @@ export default function Profile() {
                         title='Имя'
                         minLength='3'
                         maxLength='40'
-                        // placeholder= "Имя"/
+                        placeholder= "Имя"
                     />
                     <Input
                         name='email'
                         type='email'
                         title='E-mail'
-                        // placeholder="E-mail"
+                        placeholder="E-mail"
                     />
                 </Form>
                 <Link to={'/'} className='profile__link'>Выйти из аккаунта</Link>

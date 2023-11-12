@@ -44,6 +44,7 @@
     letter-spacing: -0.72px;
     margin-bottom: 60px;
     padding-bottom: 28px;
+    margin-left: -6px;
   }
 }
 
@@ -64,11 +65,18 @@
     flex-direction: column;
     width: 100%;
     gap: 40px;
+    align-items: center;
   }
 }
 
-.aboutme__resume {
+@media screen and (max-width: 520px) {
+  .aboutme__container {
+   align-items: center;
+  }
 }
+
+/* .aboutme__resume {
+} */
 
 @media screen and (max-width: 600px) {
   .aboutme__resume {
@@ -172,7 +180,7 @@
 
 .aboutme__image {
   border-radius: 10px;
-  width: 292px;
+  /* width: 292px; */
   height: 327px;
   display: block;
 }

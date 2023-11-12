@@ -12,6 +12,7 @@
 @media screen and (max-width: 520px) {
   .portfolio {
     padding-bottom: 50px;
+    
   }
 }
 
@@ -27,11 +28,21 @@
   .portfolio__title {
     margin: 0 0 40px 0;
     font-size: 14px;
+    margin-left: -8px;
+    
   }
 }
 
 .portfolio__navigation {
   width: 100%;
+}
+
+@media screen and (max-width: 520px) {
+  .portfolio__navigation {
+    margin-left: -8px;
+    
+    
+  }
 }
 
 .portfolio__lists {
@@ -54,6 +65,8 @@
   .portfolio__link {
     padding-bottom: 19px;
     /* margin-top:8px; */
+    
+    
   }
 }
 .portfolio__link_last-of-type {
@@ -84,6 +97,7 @@
     font-size: 18px;
     line-height: 28px;
     letter-spacing: -0.72px;
+    
   }
 }
 
@@ -94,10 +108,15 @@
   }
 }
 
+.portfolio__subtitle:hover{
+  opacity:0.6;
+}
+
 .portfolio__button {
   background-image: url(../../images/strelka.svg);
   background-color: transparent;
   background-repeat: no-repeat;
+  background-position: center ;
   width: 29px;
   height: 60px;
   padding: 0;

@@ -1,4 +1,4 @@
-.movie__card {
+.movie {
   list-style: none;
   padding: 0;
 }
@@ -73,6 +73,7 @@
   border: none;
   border-radius: 36px;
   transition: opacity 0.2s linear;
+  cursor: pointer;
 }
 
 .movie__save_active {

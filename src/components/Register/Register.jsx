@@ -24,6 +24,7 @@ export default function Register() {
         type='password'
         title='Пароль'
         minLength='3'
+        maxLength='40'
         placeholder='Введите ваш пароль'
       />
     </SectionAuth>

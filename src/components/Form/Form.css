@@ -1,6 +1,6 @@
 .form {
   display: flex;
-  width: 410px;
+  width: 396px;
   flex-direction: column;
 }
 
@@ -54,11 +54,13 @@
   cursor: pointer;
   transition: background-color 0.3s linear;
   min-height: 45px;
+  margin-top: 195px;
 }
 
 @media screen and (max-width: 520px) {
   .login__submit {
     font-size: 12px;
+    margin-top: 283px;
   }
 }
 
@@ -66,12 +68,23 @@
   background-color: #f8f8f8;
   color: #c2c2c2;
   pointer-events: none;
-  margin-top: 125px;
+  
 }
 
 @media (hover: hover) and (pointer: fine) {
   .login__submit:hover {
     opacity: 0.8;
     background-color: #3456f3;
+  }
+}
+
+.login__submit_reg{
+  margin-top: 125px;
+}
+
+@media screen and (max-width: 520px) {
+  .login__submit_reg {
+    font-size: 12px;
+    margin-top: 215px;
   }
 }
