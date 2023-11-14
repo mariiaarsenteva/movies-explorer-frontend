@@ -1,0 +1,141 @@
+.techs {
+  background: #f5f5f5;
+  width: 100%;
+  padding: 100px 0;
+}
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 90px 0;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .techs {
+    padding: 72px 0 70px 0;
+    background: #fff;
+  }
+}
+
+.techs__title {
+  color: #000;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.88px;
+  border-bottom: #000;
+  padding-bottom: 23px;
+  margin: 0 0 90px 0;
+  border-bottom: 1px solid #000;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__title {
+    margin-bottom: 80px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .techs__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 29px;
+    margin-bottom: 60px;
+  }
+}
+
+.techs__subtitle {
+  color: #000;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px; /* 116% */
+  letter-spacing: -2px;
+  margin-bottom: 26px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__subtitle {
+    margin-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .techs__subtitle {
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    margin-bottom: 24px;
+  }
+}
+
+.techs__description {
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.56px;
+  margin: 0 auto 100px auto;
+  width: 460px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__description {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+    margin-bottom: 83px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .techs__description {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.44px;
+    margin-bottom: 50px;
+    max-width: 100%;
+  }
+}
+.techs__items {
+  display: grid;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fit, 90px);
+  gap: 10px;
+  max-width: 690px;
+}
+@media screen and (max-width: 768px) {
+  .techs__items {
+    grid-template-columns: repeat(auto-fit, 84px);
+    max-width: 648px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .techs__items {
+    max-width: calc(100% - 106px);
+    max-width: 178px;
+  }
+}
+
+.techs__item {
+  border-radius: 10px;
+  background: #e8e8e8;
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+  padding: 21px 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__item {
+    font-size: 12px;
+    letter-spacing: -0.48px;
+  }
+}

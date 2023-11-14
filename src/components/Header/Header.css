@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 18px 67px;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .header {
+    padding: 18px 14px;
+  }
+}
+
+.header_dark {
+  background: #073042;
+}
