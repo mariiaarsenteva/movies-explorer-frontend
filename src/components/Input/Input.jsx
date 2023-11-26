@@ -23,7 +23,7 @@ export default function Input({ isEdit, isInputValid, title, name, type, error, 
                         value={value || ''}
                         onChange={onChange}
                         disabled={isSend}
-                        // pattern={pattern}
+                        pattern={pattern}
                         autoComplete='on'
 
                     />

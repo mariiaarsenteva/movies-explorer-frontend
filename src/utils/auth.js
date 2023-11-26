@@ -1,4 +1,6 @@
-const baseUrl = 'http://localhost:3000/'
+const baseUrl = 'http://localhost:3000'
+
+// import {baseUrl} from "./constants.js"
 
 function getResData(res) {
   return res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)
@@ -11,7 +13,7 @@ export function registration(username, email, password) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        name:username,
+        name: username,
         email: email,
         password: password,
     })
@@ -19,15 +21,16 @@ export function registration(username, email, password) {
   .then(res => getResData(res))
 }
 
-export function login(password, email) {
+export function login(email, password) {
   return fetch(`${baseUrl}/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      password: password,
       email: email,
+      password: password,
+      
     })
   })
   .then(res => getResData(res))

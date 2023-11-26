@@ -10,7 +10,7 @@ import Error from './Error/Error.jsx'
 import React, { useState } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "../components/App.css";
-import apiMain from "../utils/MainApi.js";
+import { login, registration, getUserData } from "../utils/auth.js";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
 // import Preloader from "../components/Preloader/Preloader.js"
 
@@ -21,13 +21,14 @@ import CurrentUserContext from "../contexts/CurrentUserContext.js"
 export default function App() {
   const navigate = useNavigate()
 
-  // стейт логина
+  // стейты пользователя 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isSend, setIsSend] = useState(false)
+  const [isError, setIsError] = useState(false)
   const [isCheckToken, setIsCheckToken] = useState(true)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
-  const [isSend, setIsSend] = useState(false)
-  const [isError, setIsError] = useState(false)
+
 
   const [currentUser, setCurrentUser] = useState({}) //объект юзера
   const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
@@ -35,17 +36,11 @@ export default function App() {
 
   function handleRegister(username, email, password) {
     setIsSend(true)
-    apiMain.registration(username, email, password)
+    registration(username, email, password)
       .then((res) => {
         if (res) {
           setLoggedIn(false)
-          apiMain.login(email, password)
-            .then(res => {
-              localStorage.setItem('jwt', res.token)
-              setLoggedIn(true)
-              navigate('/movies')
-              window.scrollTo(0, 0)
-            })
+          handleLogin(email, password) //логин сразу после регистрации 
             .catch((error) => {
               setIsError(true)
               console.error(`Ошибка при авторизации после регистрации ${error}`)
@@ -62,11 +57,11 @@ export default function App() {
 
   function handleLogin(email, password) {
     setIsSend(true)
-    apiMain.login(email, password)
+    login(email, password)
       .then(res => {
         localStorage.setItem('jwt', res.token)
         setLoggedIn(true)
-        navigate('/movies')
+        // navigate('/movies')
         window.scrollTo(0, 0)
       })
       .catch((error) => {
@@ -76,7 +71,7 @@ export default function App() {
       .finally(() => setIsSend(false))
   }
 
-  function handleLogout(){
+  function handleLogout() {
     localStorage.clear()
     setLoggedIn(false)
     navigate('/')
@@ -84,7 +79,7 @@ export default function App() {
 
   function editUserData(username, email) {
     setIsSend(true)
-    apiMain.setUserInfo(username, email, localStorage.jwt)
+    getUserData(username, email, localStorage.jwt)
       .then(res => {
         setCurrentUser(res)
         setIsSuccess(true)
@@ -100,74 +95,74 @@ export default function App() {
   return (
     <div className="page">
       {/* {isCheckToken ? <Preloader /> : */}
-        <CurrentUserContext.Provider value={currentUser}>
-          <SendContext.Provider value={isSend}>
-            <ErrorContext.Provider value={isError}>
+      <CurrentUserContext.Provider value={currentUser}>
+        <SendContext.Provider value={isSend}>
+          <ErrorContext.Provider value={isError}>
 
-              <Routes>
-                <Route path="/signin"
-                  element={
-                    loggedIn ? <Navigate to='/movies' replace /> :
+            <Routes>
+              <Route path="/signin"
+                element={
+                  loggedIn ? <Navigate to='/movies' replace /> :
                     <Login name="signin" onLogin={handleLogin} />
-                  }
-                />
+                }
+              />
 
-                <Route path="/signup"
-                  element={
-                    loggedIn ? <Navigate to='/movies' replace /> :
+              <Route path="/signup"
+                element={
+                  loggedIn ? <Navigate to='/movies' replace /> :
                     <Register name="signup" onRegister={handleRegister} />
-                  }
-                />
+                }
+              />
 
-                <Route path="/" element={
-                  <>
-                    <Header name="home" loggedIn={loggedIn} />
-                    <Main name="home" />
-                    <Footer />
-                  </>
-                } />
+              <Route path="/" element={
+                <>
+                  <Header name="home" />
+                  <Main name="home" />
+                  <Footer />
+                </>
+              } />
 
-                <Route path="/movies" element={
-                  <ProtectedRoute>
-                    <Header />
-                    <Movies name="movies" />
-                    <Footer />
-                  </ProtectedRoute>
-                } />
+              <Route path="/movies" element={
+                <ProtectedRoute>
+                  <Header />
+                  <Movies name="movies"  loggedIn={loggedIn}/>
+                  <Footer />
+                </ProtectedRoute>
+              } />
 
-                <Route path="/saved-movies" element={
-                  <ProtectedRoute>
-                    <Header />
-                    <SavedMovies name="savedmovies" />
-                    <Footer />
-                  </ProtectedRoute>
+              <Route path="/saved-movies" element={
+                <ProtectedRoute>
+                  <Header />
+                  <SavedMovies name="savedmovies" />
+                  <Footer />
+                </ProtectedRoute>
 
-                } />
+              } />
 
-                <Route path="/profile" element={
-                  <ProtectedRoute>
-                    <Header />
-                    <Profile name="profile"
-                     onLogout={handleLogout}
-                     editUserData={editUserData}
-                      />
-                    {/* <Footer /> */}
-                  </ProtectedRoute>
-                } />
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <Header />
+                  <Profile name="profile"
+                    onLogout={handleLogout}
+                    editUserData={editUserData}
+                  />
+                  {/* <Footer /> */}
+                </ProtectedRoute>
+              } />
 
-                <Route path='*' element={
-                  <>
-                    <Error name='error' />
-                  </>
-                } />
-    
+              <Route path='*' element={
+                <>
+                  <Error name='error' />
+                </>
+              } />
 
-              </Routes>
-            </ErrorContext.Provider>
-          </SendContext.Provider>
-        </CurrentUserContext.Provider>
-        {/* } */}
-            </div>
+
+            </Routes>
+          </ErrorContext.Provider>
+        </SendContext.Provider>
+      </CurrentUserContext.Provider>
+      {/* } */}
+    </div>
 
   );
-      }
+}

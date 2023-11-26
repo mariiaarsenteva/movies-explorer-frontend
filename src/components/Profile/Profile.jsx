@@ -9,7 +9,6 @@ import { emailRegex } from '../../utils/constants'
 
 export default function Profile ({
   onLogout,
-  name,
   isEdit,
   setIsEdit,
   isSuccess,
@@ -23,7 +22,7 @@ export default function Profile ({
     reset({ username: currentUser.username, email: currentUser.email })
   }, [reset, currentUser, isEdit]) //сохраняются данные в профиле
 
-  function onSubmit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault()
     editUserData(values.username, values.email)
   }
@@ -34,7 +33,7 @@ export default function Profile ({
         <h1 className='profile__title'>Привет, ${currentUser.name}!</h1>
         <Form
           isValid={isValid}
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
           setIsError={setIsError}
           values={values}
           isSuccess={isSuccess}

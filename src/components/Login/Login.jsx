@@ -6,13 +6,13 @@ import useFormValidation from "../../utils/useFormValidation/useFormValidation";
 export default function Login({onLogin, name }) {
     const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
   
-    function onSubmit(evt) {
+    function handleSubmit(evt) {
         evt.preventDefault()
-        onLogin(values.password, values.email, values.username)
+        onLogin( values.email, values.password)
       }
   
     return (
-        <SectionAuth name={name} isValid = {isValid} onSubmit={onSubmit}>
+        <SectionAuth name={name} isValid = {isValid} onSubmit={handleSubmit}>
             <Input
                 name='email'
                 type='email'
