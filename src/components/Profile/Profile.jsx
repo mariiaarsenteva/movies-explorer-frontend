@@ -7,41 +7,49 @@ import CurrentUserContext from '../../contexts/CurrentUserContext'
 import useFormValidation from '../../utils/useFormValidation/useFormValidation'
 import { emailRegex } from '../../utils/constants'
 
-export default function Profile ({
+export default function Profile({
   onLogout,
   isEdit,
   setIsEdit,
-  isSuccess,
-  setIsError
+  setIsError,
+  editUserData
 }) {
-  const { values, errors, isValid, isInputValid, setSuccess, handleChange, reset, editUserData } =
-    useFormValidation()
   const currentUser = useContext(CurrentUserContext)
+ 
+  const { values, errors, isValid, isInputValid, handleChange, reset, setValue } = useFormValidation()
 
-  useEffect(() => {
-    reset({ username: currentUser.username, email: currentUser.email })
-  }, [reset, currentUser, isEdit]) //сохраняются данные в профиле
+  useEffect(()=>{
+    setValue('username', currentUser.name)
+    setValue('email', currentUser.email)
+},[currentUser, setValue, isEdit])
 
-  function handleSubmit(evt) {
+  function onSubmit(evt) {
     evt.preventDefault()
-    editUserData(values.username, values.email)
+    editUserData(values.username, values.email, reset)
   }
 
+  useEffect(() => {
+    if (values.username !== currentUser.name || values.email !== currentUser.email) {
+      setIsEdit(true);
+    } else {
+      setIsEdit(false);
+    }
+  }, [values.username, values.email, currentUser.name, currentUser.email]);
+
   return (
-    <main>
+  
       <section className='profile'>
-        <h1 className='profile__title'>Привет, ${currentUser.name}!</h1>
+        <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
         <Form
+          
           isValid={isValid}
-          onSubmit={handleSubmit}
-          setIsError={setIsError}
+          onSubmit={onSubmit}
           values={values}
-          isSuccess={isSuccess}
-          setSuccess={setSuccess}
           setIsEdit={setIsEdit}
           isEdit={isEdit}
         >
           <Input
+          
             name='username'
             type='text'
             title='Имя'
@@ -55,11 +63,12 @@ export default function Profile ({
             isEdit={isEdit}
           />
           <Input
+        
             name='email'
             type='email'
             title='E-mail'
             placeholder='E-mail'
-            value={values.email}
+            value={values.email ? values.email : ''}
             error={errors.email}
             onChange={handleChange}
             isInputValid={isInputValid.email}
@@ -71,6 +80,6 @@ export default function Profile ({
           Выйти из аккаунта
         </Link>
       </section>
-    </main>
+   
   )
 }

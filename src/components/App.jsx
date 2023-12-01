@@ -10,8 +10,9 @@ import Error from './Error/Error.jsx'
 import React, { useState } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "../components/App.css";
-import { login, registration, getUserData } from "../utils/auth.js";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
+import { login, registration,  } from "../utils/auth.js";
+import apiMain from "../utils/MainApi.js";
+// import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
 // import Preloader from "../components/Preloader/Preloader.js"
 
 import SendContext from "../contexts/SendContext.js";
@@ -25,13 +26,13 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSend, setIsSend] = useState(false)
   const [isError, setIsError] = useState(false)
-  const [isCheckToken, setIsCheckToken] = useState(true)
-  const [isSuccess, setIsSuccess] = useState(false)
+  // const [isCheckToken, setIsCheckToken] = useState(true)
+
   const [isEdit, setIsEdit] = useState(false)
 
 
-  const [currentUser, setCurrentUser] = useState({}) //объект юзера
-  const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
+  const [currentUser, setCurrentUser] = useState({}) //объект текущего юзера
+  // const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
 
 
   function handleRegister(username, email, password) {
@@ -61,7 +62,7 @@ export default function App() {
       .then(res => {
         localStorage.setItem('jwt', res.token)
         setLoggedIn(true)
-        // navigate('/movies')
+        navigate('/movies')
         window.scrollTo(0, 0)
       })
       .catch((error) => {
@@ -79,10 +80,9 @@ export default function App() {
 
   function editUserData(username, email) {
     setIsSend(true)
-    getUserData(username, email, localStorage.jwt)
+    apiMain.setUserInfo(username, email, localStorage.jwt)
       .then(res => {
         setCurrentUser(res)
-        setIsSuccess(true)
         setIsEdit(false)
       })
       .catch((err) => {
@@ -91,6 +91,8 @@ export default function App() {
       })
       .finally(() => setIsSend(false))
   }
+
+
 
   return (
     <div className="page">
@@ -123,31 +125,33 @@ export default function App() {
               } />
 
               <Route path="/movies" element={
-                <ProtectedRoute>
-                  <Header />
-                  <Movies name="movies"  loggedIn={loggedIn}/>
-                  <Footer />
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                  <Movies name="movies"  />
+                // </ProtectedRoute>
               } />
 
               <Route path="/saved-movies" element={
-                <ProtectedRoute>
-                  <Header />
+                // <ProtectedRoute>
+                
                   <SavedMovies name="savedmovies" />
-                  <Footer />
-                </ProtectedRoute>
+               
+                // </ProtectedRoute>
 
               } />
 
               <Route path="/profile" element={
-                <ProtectedRoute>
-                  <Header />
+                // <ProtectedRoute>
                   <Profile name="profile"
+                  loggedIn={loggedIn}
                     onLogout={handleLogout}
                     editUserData={editUserData}
+                    // isSuccess={isSuccess}
+                    // setSuccess={setSuccess}
+                    setIsEdit={setIsEdit}
+                    isEdit={isEdit}
+                    setIsError={setIsError}
                   />
-                  {/* <Footer /> */}
-                </ProtectedRoute>
+                // </ProtectedRoute>
               } />
 
               <Route path='*' element={

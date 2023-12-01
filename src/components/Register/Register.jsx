@@ -7,24 +7,24 @@ export default function Register({name, onRegister}) {
 
   const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
   
-  function handleSubmit(evt) {
+  function onSubmit(evt) {
     evt.preventDefault()
-    onRegister(values.name, values.email, values.password) 
+    onRegister(values.username, values.email, values.password)
   }
 
   return (
-    <SectionAuth name={name} isValid = {isValid} onSubmit={handleSubmit} >
+    <SectionAuth name={name} isValid = {isValid} onSubmit={onSubmit} >
       <Input
-        name='name'
+        name='username'
         type='text'
         title='Имя'
         minLength='2'
         maxLength='40'
         placeholder='Введите ваше имя'
-        value = {values.name}
-        error={errors.name}
+        value = {values.username}
+        error={errors.username}
         onChange={handleChange}
-        isInputValid={isInputValid.name}
+        isInputValid={isInputValid.username}
 
 
       />
