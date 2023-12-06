@@ -11,7 +11,6 @@ export default function Profile({
   onLogout,
   isEdit,
   setIsEdit,
-  setIsError,
   editUserData
 }) {
   const currentUser = useContext(CurrentUserContext)
@@ -34,7 +33,7 @@ export default function Profile({
     } else {
       setIsEdit(false);
     }
-  }, [values.username, values.email, currentUser.name, currentUser.email]);
+  }, [values.username, values.email, currentUser.name, currentUser.email, setIsEdit]);
 
   return (
   

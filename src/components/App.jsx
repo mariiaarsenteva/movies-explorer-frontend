@@ -7,13 +7,13 @@ import Movies from "./Movies/Movies.jsx"
 import SavedMovies from './SavedMovies/SavedMovies.jsx'
 import Profile from "./Profile/Profile.jsx"
 import Error from './Error/Error.jsx'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "../components/App.css";
 import { login, registration,  } from "../utils/auth.js";
 import apiMain from "../utils/MainApi.js";
 // import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
-// import Preloader from "../components/Preloader/Preloader.js"
+import Preloader from "../components/Preloader/Preloader.js"
 
 import SendContext from "../contexts/SendContext.js";
 import ErrorContext from "../contexts/ErrorContext.js";
@@ -26,7 +26,7 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSend, setIsSend] = useState(false)
   const [isError, setIsError] = useState(false)
-  // const [isCheckToken, setIsCheckToken] = useState(true)
+  const [isCheckToken, setIsCheckToken] = useState(true)
 
   const [isEdit, setIsEdit] = useState(false)
 
@@ -34,6 +34,28 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState({}) //объект текущего юзера
   // const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
 
+
+
+  useEffect(() => {
+    if (localStorage.jwt) {
+      Promise.all([apiMain.getUserInfo(localStorage.jwt), ])
+        .then(([data]) => {
+          // setSavedMovies(dataMovies.reverse())
+          setCurrentUser(data)
+          setLoggedIn(true)
+          setIsCheckToken(false)
+        })
+        .catch((err) => {
+          console.error(`Ошибка авторизации при повторном входе ${err}`)
+          setIsCheckToken(false)
+          localStorage.clear()
+        })
+    } else {
+      setLoggedIn(false)
+      setIsCheckToken(false)
+      localStorage.clear()
+    }
+  }, [loggedIn])
 
   function handleRegister(username, email, password) {
     setIsSend(true)
@@ -96,7 +118,7 @@ export default function App() {
 
   return (
     <div className="page">
-      {/* {isCheckToken ? <Preloader /> : */}
+      {isCheckToken ? <Preloader /> :
       <CurrentUserContext.Provider value={currentUser}>
         <SendContext.Provider value={isSend}>
           <ErrorContext.Provider value={isError}>
@@ -151,7 +173,7 @@ export default function App() {
                     isEdit={isEdit}
                     setIsError={setIsError}
                   />
-                // </ProtectedRoute>
+                //  </ProtectedRoute>
               } />
 
               <Route path='*' element={
@@ -165,7 +187,7 @@ export default function App() {
           </ErrorContext.Provider>
         </SendContext.Provider>
       </CurrentUserContext.Provider>
-      {/* } */}
+      } 
     </div>
 
   );

@@ -28,18 +28,15 @@ function handleChange(evt){
     })
 
     setIsValid(form.checkValidity())
-
-    console.log(evt)
 }
 
 
-
-const reset = useCallback((data ={})=>{
+function reset(data ={}){
     setValues(data)
     setErrors({})
     setIsValid(false)
     setIsInputValid({})
-},[])
+}
 
 const setValue = useCallback((name, value) => {
     setValues((previousValues)=>{

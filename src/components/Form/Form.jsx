@@ -17,6 +17,7 @@ export default function Form({ name, isValid, children, onSubmit, isEdit, setIsE
     }
   }, [ setIsEdit, pathname])
 
+
   return (
     <form className='form' noValidate name={name} onSubmit={onSubmit}>
       {children}
@@ -27,7 +28,7 @@ export default function Form({ name, isValid, children, onSubmit, isEdit, setIsE
             type="submit"
             className={`login__submit ${isValid && !isError ? '' : 'login__submit_disabled'}`}
             disabled={!isValid || isSend || isError}
-          >Войти</button>
+          >{isSend? '' : 'Войти'}</button>
         </>
         :
         pathname === '/signup' ?
@@ -37,7 +38,7 @@ export default function Form({ name, isValid, children, onSubmit, isEdit, setIsE
             type="submit"
             className={`login__submit_reg login__submit ${isValid && !isError ? '' : 'login__submit_disabled'}`}
             disabled={!isValid || isSend || isError}
-            >Зарегистрироваться</button>
+            >{isSend? '' : 'Зарегистрироваться'}</button>
           </>
           : !isEdit ?
           <>
@@ -55,15 +56,15 @@ export default function Form({ name, isValid, children, onSubmit, isEdit, setIsE
           {/* <span className='profile__error'>{'При обновлении профиля произошла ошибка.'}</span> */}
           <button 
           type="submit" 
-          className={`login__submit ${(values.name === currentUser.username && values.email === currentUser.email) || !isValid || isError ? 'login__submit_disabled' : ''}`}
+          className={`login__submit ${(values.username === currentUser.name || values.email === currentUser.email) || !isValid || isError ? 'login__submit_disabled' : ''}`}
           disabled={!isValid || isSend || isError}
-          >Сохранить</button>
+          >{isSend? '' : 'Сохранить'}</button>
            <button 
           type="submit" 
           className='profile__submit'
           onClick={() => {
             setIsEdit(false)
-            setIsError(false)
+
           }}
           >Отменить редактирование</button>
         </>

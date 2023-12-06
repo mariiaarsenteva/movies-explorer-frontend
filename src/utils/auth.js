@@ -36,7 +36,7 @@ export function login(email, password) {
   .then(res => getResData(res))
 }
 
-export function getUserData(token) {
+export function checkToken(token) {
   return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {

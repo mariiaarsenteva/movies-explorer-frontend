@@ -122,6 +122,7 @@
   line-height: normal;
   border: none;
   outline: none;
+  background-color: transparent;
 }
 
 .profile__input_invaid {
