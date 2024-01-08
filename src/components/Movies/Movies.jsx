@@ -16,7 +16,7 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
     const [searchedMovie, setSearchedMovie] = useState('')
     const [isCheck, setIsCheck] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [firstEntrance, setFirstEntrance] = useState(true)
+    const [firstLogin, setFirstLogin] = useState(true)
     const [serverError, setServerError] = useState(false)
 
     const filter = useCallback((search, isCheck, movies) => {
@@ -59,7 +59,7 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
           setSearchedMovie(search)
           setIsCheck(isCheck)
           setAllMovies(movies)
-          setFirstEntrance(false)
+          setFirstLogin(false)
           filter(search, isCheck, movies)
         }
       }, [filter])
@@ -95,7 +95,7 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
                 savedMovies={savedMovies}
                 isLoading={isLoading}
                 serverError={serverError}
-                firstEntrance={firstEntrance}
+                firstLogin={firstLogin}
                 />
             </main>
 

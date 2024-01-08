@@ -1,6 +1,6 @@
 import './FilterCheckbox.css'
 
-export default function FilterCheckbox({isCheck, filterShort}) {
+export default function FilterCheckbox({filterShort}) {
   return (
     <label className="checkbox">
       <input className="checkbox__toggle" type="checkbox" name="searchCheckbox" id="searchCheckbox" onChange={()=> filterShort()}/>

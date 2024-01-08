@@ -16,7 +16,7 @@ import {
     StepSmallScreen
   } from "../../utils/constants";
 
-export default function MoviesCardList({movies, isLoading, savedMovies, serverError, firstEntrance}) {
+export default function MoviesCardList({movies, isLoading, savedMovies, serverError, firstLogin}) {
     const { pathname } = useLocation()
     const [count, setCount] = useState('')
     const fact = movies.slice(0, count)
@@ -89,16 +89,16 @@ export default function MoviesCardList({movies, isLoading, savedMovies, serverEr
                   />
                 )
               }) : serverError ?
-                <span className='cards__serch-error'>«Во время запроса произошла ошибка.
+                <span className='cards__search-error'>«Во время запроса произошла ошибка.
                   Возможно, проблема с соединением или сервер недоступен.
                   Подождите немного и попробуйте ещё раз»
                 </span>
-                : !firstEntrance ?
-                <span className='cards__serch-error'>«Ничего не найдено»</span>
+                : !firstLogin ?
+                <span className='cards__saerch-error'>«Ничего не найдено»</span>
                 : pathname === '/movies' ?
-                <span className='cards__serch-error'>«Чтобы увидеть список фильмоа выполните поиск»</span>
+                <span className='cards__search-error'>«Выполните поиск, чтобы увидеть список фильмов»</span>
                 :
-                <span className='cards__serch-error'>«Нет сохранённых фильмов»</span>
+                <span className='cards__search-error'>«Вы еще ничего не сохранили»</span>
         }
                 {/* <MoviesCard />
                 <MoviesCard />

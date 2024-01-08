@@ -71,15 +71,15 @@
   }
 }
 
-/* .cards__button_hidden {
+.cards__button_hidden {
   visibility: hidden;  
-} */
+}
 
 
 .cards__button:hover {
   opacity: 0.8; 
 }
 
-.cards__serch-error{
+.cards__search-error{
   text-align: center;
 }
