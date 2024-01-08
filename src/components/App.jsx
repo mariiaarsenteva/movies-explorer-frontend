@@ -32,16 +32,16 @@ export default function App() {
 
 
   const [currentUser, setCurrentUser] = useState({}) //объект текущего юзера
-  // const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
+  const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
 
 
 
   useEffect(() => {
     if (localStorage.jwt) {
-      Promise.all([apiMain.getUserInfo(localStorage.jwt), ])
-        .then(([data]) => {
-          // setSavedMovies(dataMovies.reverse())
-          setCurrentUser(data)
+      Promise.all([apiMain.getUserInfo(localStorage.jwt), apiMain.getMovies(localStorage.jwt)])
+        .then(([userData, movieData]) => {
+          setSavedMovies(movieData.reverse())
+          setCurrentUser(userData)
           setLoggedIn(true)
           setIsCheckToken(false)
         })
@@ -148,7 +148,12 @@ export default function App() {
 
               <Route path="/movies" element={
                 // <ProtectedRoute>
-                  <Movies name="movies"  />
+                  <Movies name="movies" 
+                  savedMovies={savedMovies}
+                  // addMovie={handleToggelMovie}
+                  loggedIn={loggedIn}
+                  setIsError={setIsError}
+                   />
                 // </ProtectedRoute>
               } />
 
@@ -167,8 +172,6 @@ export default function App() {
                   loggedIn={loggedIn}
                     onLogout={handleLogout}
                     editUserData={editUserData}
-                    // isSuccess={isSuccess}
-                    // setSuccess={setSuccess}
                     setIsEdit={setIsEdit}
                     isEdit={isEdit}
                     setIsError={setIsError}

@@ -1,21 +1,57 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import useFormValidation from '../../utils/useFormValidation/useFormValidation'
 
 
-export default function SearchForm() {
 
+export default function SearchForm( {savedMovie, searchedMovie, searchMovies, setIsError,isCheck, filterShort }) {
+
+    const { pathname } = useLocation()
+    const { reset, values, handleChange,  } = useFormValidation()
+  
+    useEffect(() => {
+      if ((pathname === '/saved-movies' && savedMovie.length === 0)) {
+        reset({ search: '' })
+      } else {
+        reset({ search: searchedMovie })
+      }
+      setIsError(false)
+    }, [searchedMovie, setIsError, pathname, savedMovie])
+  
+
+    function onSubmit(evt) {
+        evt.preventDefault()
+        if (evt.target.search.value) {
+            searchMovies(evt.target.search.value)
+            setIsError(false)
+        } else {
+            setIsError(true)
+        }
+    }
     return (
-        <main>
         <section className='search'>
             <div className='search__container'>
-                <form noValidate className='search__form'>
-                    <input type="text" placeholder='Фильм' className='search__input' required />
-                    <button className='search__button'>Найти</button>
+                <form noValidate className='search__form' onSubmit={onSubmit} >
+                    <input
+                    name="search"
+                     type="text"
+                        placeholder='Фильм'
+                        className='search__input'
+                        value={values.search || ''}
+                        onChange={(evt) => {
+                            handleChange(evt)
+                            setIsError(false)
+                          }}
+                        disabled={savedMovie ? (savedMovie.length === 0 && true) : false}
+                        required />
+                    <button className={`search__button ${savedMovie ? (pathname === '/saved-movies' && savedMovie.length === 0) && 'search__button_disabled' : ''}`}>Найти</button>
                 </form>
-                <FilterCheckbox />
+                <FilterCheckbox isCheck={isCheck} filterShort={filterShort}/>
             </div>
         </section>
-        </main>
+
 
     )
 }

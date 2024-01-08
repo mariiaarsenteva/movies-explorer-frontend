@@ -1,7 +1,7 @@
 // import {baseUrl} from "./constants.js"
 
 class MoviesApi {
-    constructor({ options }) {
+    constructor( options ) {
         this._url = options.baseUrl;
     }
 
@@ -23,7 +23,8 @@ class MoviesApi {
 //создаем экземпляр класса Api
 
 const apiMovies = new MoviesApi({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+    //'https://api.nomoreparties.co/beatfilm-movies'//
 });
 
 export default apiMovies
