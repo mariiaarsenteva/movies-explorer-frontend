@@ -79,7 +79,7 @@ class MainApi {
 //создаем экземпляр класса Api
 
 const apiMain = new MainApi({
-    baseUrl: 'api.mariia.movies.nomoredomainsrocks.ru',
+    baseUrl: 'https://api.mariia.movies.nomoredomainsrocks.ru',
     // api.mariia.movies.nomoredomainsrocks.ru
 });
 
