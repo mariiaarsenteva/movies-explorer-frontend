@@ -1,18 +1,24 @@
 import "./MoviesCard.css"
 import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
-export default function MoviesCard({ data }) {
+export default function MoviesCard({ data, addMovie, onDelete, savedMovies }) {
     const { pathname } = useLocation()
     const [isLike, setIsLike] = useState()
- 
+
+    useEffect(() => {
+        if (pathname === '/movies')
+            setIsLike(savedMovies.some(element => data.id === element.movieId))
+    }, [savedMovies, data.id, setIsLike, pathname])
 
     function onClick() {
         if (isLike) {
             setIsLike(false)
+            addMovie(data)
         } else {
             setIsLike(true)
+            addMovie(data)
         }
     }
 
@@ -20,14 +26,14 @@ export default function MoviesCard({ data }) {
         const minutes = duration % 60;
         const hours = Math.floor(duration / 60);
         return (hours === 0 ? `${minutes}м` : minutes === 0 ? `${hours}ч` : `${hours}ч${minutes}м`)
-      }
+    }
 
     return (
 
 
         <li className='movie'>
             <article>
-            {/* <img src={poster} alt="постер фильма" className='movie__poster' />
+                {/* <img src={poster} alt="постер фильма" className='movie__poster' />
                 <div className='movie__about'>
                     <div className='movie__info'>
                         <p className='movie__title'>33 слова о дизайне</p>
@@ -48,7 +54,7 @@ export default function MoviesCard({ data }) {
                         {pathname === '/movies' ?
                             <button className={`movie__save ${isLike ? 'movie__save_active' : ''}`} type='button' onClick={onClick} ></button>
                             :
-                            <button className={`movie__save movie__save_delete`} type='button' onClick={onClick} ></button>
+                            <button className={`movie__save movie__save_delete`} type='button' onClick={() => onDelete(data._id)} ></button>
                         }
                     </div>
                     <span className='movie__duration'>{convertTime(data.duration)}</span>

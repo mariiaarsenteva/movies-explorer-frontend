@@ -10,9 +10,11 @@ import Error from './Error/Error.jsx'
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "../components/App.css";
-import { login, registration,  } from "../utils/auth.js";
+import { login, registration, } from "../utils/auth.js"
+
 import apiMain from "../utils/MainApi.js";
-// import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
+import ProtectedPage from "./ProtectedPage/ProtectedPage.jsx"
 import Preloader from "../components/Preloader/Preloader.js"
 
 import SendContext from "../contexts/SendContext.js";
@@ -114,83 +116,111 @@ export default function App() {
       .finally(() => setIsSend(false))
   }
 
+  function dislikeMovie(deletemovieId) {
+    apiMain.removeMovie(deletemovieId, localStorage.jwt)  // делаем запрос delete по id фильма
+      // если все успешно, то возравщаем массив ещё не удаленных фильмов
+      .then(() => {
+        setSavedMovies(savedMovies.filter(movie => { return movie._id !== deletemovieId }))
+      })
+      .catch((err) => console.error(`Ошибка при удалении фильма ${err}`))
+  }
 
+  function likeMovie(data) {
+    const isLiked = savedMovies.find(element => data.id === element.movieId)
+    const clickedMovie = savedMovies.filter((movie) => {
+      return movie.movieId === data.id
+    })
+    if (isLiked) {
+      dislikeMovie(clickedMovie[0]._id)
+    } else {
+      apiMain.addMovie(data, localStorage.jwt)
+        .then(res => {
+          setSavedMovies([res, ...savedMovies])
+        })
+        .catch((err) => console.error(`Ошибка при установке лайка ${err}`))
+    }
+  }
 
   return (
     <div className="page">
       {isCheckToken ? <Preloader /> :
-      <CurrentUserContext.Provider value={currentUser}>
-        <SendContext.Provider value={isSend}>
-          <ErrorContext.Provider value={isError}>
+        <CurrentUserContext.Provider value={currentUser}>
+          <SendContext.Provider value={isSend}>
+            <ErrorContext.Provider value={isError}>
 
-            <Routes>
-              <Route path="/signin"
-                element={
-                  loggedIn ? <Navigate to='/movies' replace /> :
-                    <Login name="signin" onLogin={handleLogin} />
-                }
-              />
+              <Routes>
+                <Route path="/signin"
+                  element={
+                    loggedIn ? <Navigate to='/movies' replace /> :
+                      <Login name="signin" onLogin={handleLogin} />
+                  }
+                />
 
-              <Route path="/signup"
-                element={
-                  loggedIn ? <Navigate to='/movies' replace /> :
-                    <Register name="signup" onRegister={handleRegister} />
-                }
-              />
+                <Route path="/signup"
+                  element={
+                    loggedIn ? <Navigate to='/movies' replace /> :
+                      <Register name="signup" onRegister={handleRegister} />
+                  }
+                />
 
-              <Route path="/" element={
-                <>
-                  <Header name="home" />
-                  <Main name="home" />
-                  <Footer />
-                </>
-              } />
+                <Route path="/" element={
+                  <>
+                    <Header name="home" />
+                    <Main name="home" />
+                    <Footer />
+                  </>
+                } />
 
-              <Route path="/movies" element={
-                // <ProtectedRoute>
-                  <Movies name="movies" 
-                  savedMovies={savedMovies}
-                  // addMovie={handleToggelMovie}
-                  loggedIn={loggedIn}
-                  setIsError={setIsError}
-                   />
-                // </ProtectedRoute>
-              } />
+                <Route path="/movies" element={
+                  <ProtectedRoute
+                    component={Movies} name="movies"
+                    savedMovies={savedMovies}
+                    addMovie={likeMovie}
+                    loggedIn={loggedIn}
+                    setIsError={setIsError}
+                  />
 
-              <Route path="/saved-movies" element={
-                // <ProtectedRoute>
-                
-                  <SavedMovies name="savedmovies" />
-               
-                // </ProtectedRoute>
+                } />
 
-              } />
+                <Route path="/saved-movies" element={
+                  <ProtectedRoute
+                    component={SavedMovies}
+                    name="savedmovies"
+                    element={ProtectedPage}
+                    onDelete={dislikeMovie}
+                    savedMovies={savedMovies}
+                    loggedIn={loggedIn}
+                    setIsError={setIsError} />
 
-              <Route path="/profile" element={
-                // <ProtectedRoute>
-                  <Profile name="profile"
-                  loggedIn={loggedIn}
+
+
+                } />
+
+                <Route path="/profile" element={
+                  <ProtectedRoute
+                    component={Profile}
+                    loggedIn={loggedIn}
                     onLogout={handleLogout}
                     editUserData={editUserData}
                     setIsEdit={setIsEdit}
                     isEdit={isEdit}
                     setIsError={setIsError}
                   />
-                //  </ProtectedRoute>
-              } />
 
-              <Route path='*' element={
-                <>
-                  <Error name='error' />
-                </>
-              } />
+                } />
+
+                <Route path='*' element={
+                  <>
+                    <Error name='error' />
+                  </>
+                } />
 
 
-            </Routes>
-          </ErrorContext.Provider>
-        </SendContext.Provider>
-      </CurrentUserContext.Provider>
-      } 
+              </Routes>
+            </ErrorContext.Provider>
+          </SendContext.Provider>
+        </CurrentUserContext.Provider>
+      }
     </div>
 
   );
