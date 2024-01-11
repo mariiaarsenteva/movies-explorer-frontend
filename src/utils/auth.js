@@ -1,6 +1,6 @@
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://api.mariia.movies.nomoredomainsrocks.ru'
 
-// import {baseUrl} from "./constants.js"
+import {baseUrl} from "./constants.js"
 
 function getResData(res) {
   return res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)
