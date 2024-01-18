@@ -4,7 +4,7 @@ export const emailRegex = "\\S+@\\S+\\.\\S+$";
 export const baseUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3001'
-    : ' http://api.mariia.movies.nomoredomainsrocks.ru';
+    : ' https://api.mariia.movies.nomoredomainsrocks.ru';
 
 
 export const MaxScreen = 1280
