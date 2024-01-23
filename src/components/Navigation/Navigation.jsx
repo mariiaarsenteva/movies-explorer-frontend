@@ -6,12 +6,9 @@ export default function Navigation({ loggedIn }) {
   const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false);
 
-  function handelClick() {
-    if (isOpen) {
-      setIsOpen(false)
-    } else {
-      setIsOpen(true)
-    }
+
+  function handleClick() {
+    setIsOpen(!isOpen);
   }
 
   function clickLink() {
@@ -55,7 +52,7 @@ export default function Navigation({ loggedIn }) {
               </li>
 
               <li className="header__links-list">
-                <Link to='/movies'  onClick={clickLink} className={`  ${pathname === '/movies' ? 'header__link_active' : ''} && header__link || ${pathname !== '/' ? 'header__link_white' : ''}`} >Фильмы</Link>
+                <Link to='/movies' onClick={clickLink} className={`  ${pathname === '/movies' ? 'header__link_active' : ''} && header__link || ${pathname !== '/' ? 'header__link_white' : ''}`} >Фильмы</Link>
               </li>
 
               <li className="header__links-list">
@@ -63,12 +60,12 @@ export default function Navigation({ loggedIn }) {
               </li>
 
               <li className="header__links-list">
-                <Link to='/profile' onClick={clickLink} className={` ${pathname === '/profile' ? 'header__link_active' : ''} && header__account-icon || ${pathname === '/profile' ? 'header__account-icon_white' : '' }`} ></Link>
+                <Link to='/profile' onClick={clickLink} className={` ${pathname === '/profile' ? 'header__link_active' : ''} && header__account-icon || ${pathname === '/profile' ? 'header__account-icon_white' : ''}`} ></Link>
               </li>
             </ul>
-            <button type='button' className='header__burger-close' onClick={handelClick}></button>
+            <button type='button' className='header__burger-close' onClick={handleClick}></button>
           </nav>
-          <button type='button' className={`header__burger || ${pathname !== '/' ? 'header__burger_dark' : ''}`} onClick={handelClick}></button>
+          <button type='button' className={`header__burger || ${pathname !== '/' ? 'header__burger_dark' : ''}`} onClick={handleClick}></button>
         </>
       )
       }

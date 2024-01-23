@@ -7,7 +7,7 @@ import Movies from "./Movies/Movies.jsx"
 import SavedMovies from './SavedMovies/SavedMovies.jsx'
 import Profile from "./Profile/Profile.jsx"
 import Error from './Error/Error.jsx'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "../components/App.css";
 import { login, registration, } from "../utils/auth.js"
@@ -39,25 +39,69 @@ export default function App() {
 
 
   useEffect(() => {
-    if (localStorage.jwt) {
-      Promise.all([apiMain.getUserInfo(localStorage.jwt), apiMain.getMovies(localStorage.jwt)])
-        .then(([userData, movieData]) => {
-          setSavedMovies(movieData.reverse())
-          setCurrentUser(userData)
-          setLoggedIn(true)
-          setIsCheckToken(false)
-        })
-        .catch((err) => {
-          console.error(`Ошибка авторизации при повторном входе ${err}`)
-          setIsCheckToken(false)
-          localStorage.clear()
-        })
+    const handleInitialUser = async () => {
+      try {
+        if (localStorage.jwt) {
+          const [userData, movieData] = await Promise.all([
+            apiMain.getUserInfo(localStorage.jwt),
+            apiMain.getMovies(localStorage.jwt)
+          ]);
+          setSavedMovies(movieData.reverse());
+          setCurrentUser(userData);
+          setLoggedIn(true);
+          setIsCheckToken(false);
+        } else {
+          setLoggedIn(false);
+          setIsCheckToken(false);
+          localStorage.clear();
+        }
+      } catch (error) {
+        console.error(`Ошибка авторизации при повторном входе: ${error}`);
+        setIsCheckToken(false);
+        localStorage.clear();
+      }
+    };
+    handleInitialUser();
+  }, [loggedIn]);
+
+  const editUserData = useCallback((username, email) => {
+    apiMain.setUserInfo(username, email, localStorage.jwt)
+      .then((res) => {
+        setCurrentUser(res);
+        setIsEdit(false);
+        setIsSend(false);
+      })
+      .catch((err) => {
+        setIsError(true);
+        console.error(`Ошибка при редактировании данных пользователя ${err}`);
+        setIsSend(false);
+      });
+  },
+    [setCurrentUser, setIsEdit, setIsError, setIsSend]
+  );
+
+  const handleDislikeMovie = useCallback((deletemovieId) => {
+    apiMain.removeMovie(deletemovieId, localStorage.jwt)
+      .then(() => {
+        setSavedMovies(savedMovies.filter(movie => movie._id !== deletemovieId));
+      })
+      .catch((err) => console.error(`Ошибка при удалении фильма ${err}`));
+  }, [savedMovies]);
+
+  const handleLikeMovie = useCallback((data) => {
+    const isLiked = savedMovies.some(movie => data.id === movie.movieId);
+    if (isLiked) {
+      const clickedMovie = savedMovies.find(movie => movie.movieId === data.id);
+      handleDislikeMovie(clickedMovie._id);
     } else {
-      setLoggedIn(false)
-      setIsCheckToken(false)
-      localStorage.clear()
+      apiMain.addMovie(data, localStorage.jwt)
+        .then(res => {
+          setSavedMovies([res, ...savedMovies]);
+        })
+        .catch((err) => console.error(`Ошибка при установке лайка ${err}`));
     }
-  }, [loggedIn])
+  }, [savedMovies, handleDislikeMovie]);
+
 
   function handleRegister(username, email, password) {
     setIsSend(true)
@@ -102,45 +146,6 @@ export default function App() {
     navigate('/')
   }
 
-  function editUserData(username, email) {
-    setIsSend(true)
-    apiMain.setUserInfo(username, email, localStorage.jwt)
-      .then(res => {
-        setCurrentUser(res)
-        setIsEdit(false)
-      })
-      .catch((err) => {
-        setIsError(true)
-        console.error(`Ошибка при редактировании данных пользователя ${err}`)
-      })
-      .finally(() => setIsSend(false))
-  }
-
-  function dislikeMovie(deletemovieId) {
-    apiMain.removeMovie(deletemovieId, localStorage.jwt)  // делаем запрос delete по id фильма
-      // если все успешно, то возравщаем массив ещё не удаленных фильмов
-      .then(() => {
-        setSavedMovies(savedMovies.filter(movie => { return movie._id !== deletemovieId }))
-      })
-      .catch((err) => console.error(`Ошибка при удалении фильма ${err}`))
-  }
-
-  function likeMovie(data) {
-    const isLiked = savedMovies.find(element => data.id === element.movieId)
-    const clickedMovie = savedMovies.filter((movie) => {
-      return movie.movieId === data.id
-    })
-    if (isLiked) {
-      dislikeMovie(clickedMovie[0]._id)
-    } else {
-      apiMain.addMovie(data, localStorage.jwt)
-        .then(res => {
-          setSavedMovies([res, ...savedMovies])
-        })
-        .catch((err) => console.error(`Ошибка при установке лайка ${err}`))
-    }
-  }
-
   return (
     <div className="page">
       {isCheckToken ? <Preloader /> :
@@ -152,14 +157,14 @@ export default function App() {
                 <Route path="/signin"
                   element={
                     loggedIn ? <Navigate to='/movies' replace /> :
-                      <Login name="signin" onLogin={handleLogin} />
+                      <Login name="signin" handleLogin={handleLogin} />
                   }
                 />
 
                 <Route path="/signup"
                   element={
                     loggedIn ? <Navigate to='/movies' replace /> :
-                      <Register name="signup" onRegister={handleRegister} />
+                      <Register name="signup" handleRegister={handleRegister} />
                   }
                 />
 
@@ -175,7 +180,7 @@ export default function App() {
                   <ProtectedRoute
                     component={Movies} name="movies"
                     savedMovies={savedMovies}
-                    addMovie={likeMovie}
+                    addMovie={handleLikeMovie}
                     loggedIn={loggedIn}
                     setIsError={setIsError}
                   />
@@ -187,7 +192,7 @@ export default function App() {
                     component={SavedMovies}
                     name="savedmovies"
                     element={ProtectedPage}
-                    onDelete={dislikeMovie}
+                    onDelete={handleDislikeMovie}
                     savedMovies={savedMovies}
                     loggedIn={loggedIn}
                     setIsError={setIsError} />

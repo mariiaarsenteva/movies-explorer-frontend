@@ -5,7 +5,7 @@ import SendContext from "../../contexts/SendContext"
 import ErrorContext from "../../contexts/ErrorContext"
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 
-export default function Form({ name, isValid, children, onSubmit, isEdit, setIsEdit, setSuccess, values, setIsError}) {
+export default function Form({ isValid, children, onSubmit, isEdit, setIsEdit, values }) {
   const { pathname } = useLocation()
   const isSend = useContext(SendContext)
   const isError = useContext(ErrorContext)
@@ -15,59 +15,50 @@ export default function Form({ name, isValid, children, onSubmit, isEdit, setIsE
     if (pathname === '/profile') {
       setIsEdit(false)
     }
-  }, [ setIsEdit, pathname])
+  }, [setIsEdit, pathname])
 
 
   return (
-    <form className='form' noValidate name={name} onSubmit={onSubmit}>
+    <form className='form' noValidate onSubmit={onSubmit}>
       {children}
       {pathname === '/signin' ?
         <>
-          {/* <span className='login__error'>{'При авторизации произошла ошибка.'}</span> */}
           <button
             type="submit"
             className={`login__submit ${isValid && !isError ? '' : 'login__submit_disabled'}`}
             disabled={!isValid || isSend || isError}
-          >{isSend? '' : 'Войти'}</button>
+          >{isSend ? '' : 'Войти'}</button>
         </>
         :
         pathname === '/signup' ?
           <>
-            {/* <span className='login__error login__error_registration'>При регистрации пользователя произошла ошибка.</span> */}
-            <button 
-            type="submit"
-            className={`login__submit_reg login__submit ${isValid && !isError ? '' : 'login__submit_disabled'}`}
-            disabled={!isValid || isSend || isError}
-            >{isSend? '' : 'Зарегистрироваться'}</button>
+            <button
+              type="submit"
+              className={`login__submit_reg login__submit ${isValid && !isError ? '' : 'login__submit_disabled'}`}
+              disabled={!isValid || isSend || isError}
+            >{isSend ? '' : 'Зарегистрироваться'}</button>
           </>
           : !isEdit ?
-          <>
-            {/* <span className='profile__error'>{'При обновлении профиля произошла ошибка.'}</span> */}
-            <button 
-            type="submit" 
-            className='profile__submit'
-            onClick={() => {
-              setIsEdit(true)
-            }}
-            >Редактировать</button>
-          </>
-          :
-          <>
-          {/* <span className='profile__error'>{'При обновлении профиля произошла ошибка.'}</span> */}
-          <button 
-          type="submit" 
-          className={`login__submit ${(values.username === currentUser.name || values.email === currentUser.email) || !isValid || isError ? 'login__submit_disabled' : ''}`}
-          disabled={!isValid || isSend || isError}
-          >{isSend? '' : 'Сохранить'}</button>
-           <button 
-          type="submit" 
-          className='profile__submit'
-          onClick={() => {
-            setIsEdit(false)
-
-          }}
-          >Отменить редактирование</button>
-        </>
+            <>
+              <button
+                type="submit"
+                className='profile__submit'
+                onClick={() => setIsEdit(true)}
+              >Редактировать</button>
+            </>
+            :
+            <>
+              <button
+                type="submit"
+                className={`login__submit ${(values.username === currentUser.name || values.email === currentUser.email) || !isValid || isError ? 'login__submit_disabled' : ''}`}
+                disabled={!isValid || isSend || isError}
+              >{isSend ? '' : 'Сохранить'}</button>
+              <button
+                type="submit"
+                className='profile__submit'
+                onClick={() => setIsEdit(false)}
+              >Отменить редактирование</button>
+            </>
       }
     </form>
   )

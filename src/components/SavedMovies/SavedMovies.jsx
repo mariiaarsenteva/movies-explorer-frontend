@@ -14,39 +14,39 @@ export default function SavedMovies({ onDelete, savedMovies, setIsError }) {
     const [isCheck, setIsCheck] = useState(false)
     const [firstLogin, setFirstLogin] = useState(true)
 
-    const filter = useCallback((search, isCheck, movies) => {
-        setSearchedMovie(search)
-        setFilteredMovies(movies.filter((movie) => {
-            const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase())
-            return isCheck ? (searchName && movie.duration <= 40) : searchName
-        }))
-    }, [])
+    const filterMovies = useCallback((movies, search, check) => {
+        return movies.filter((movie) => {
+            const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase());
+            return check ? (searchName && movie.duration <= 40) : searchName;
+        });
+    }, []);
 
-    function searchMovies(search) {
-        setFirstLogin(false)
-        filter(search, isCheck, savedMovies)
-    }
+    const handleSearchMovies = (search) => {
+        setFirstLogin(false);
+        setSearchedMovie(search);
+        setFilteredMovies(filterMovies(savedMovies, search, isCheck));
+    };
+
+    const toggleFilterShort = () => {
+        setIsCheck((prevCheck) => {
+            const newCheck = !prevCheck;
+            setFirstLogin(false);
+            setFilteredMovies(filterMovies(savedMovies, searchedMovie, newCheck));
+            return newCheck;
+        });
+    };
 
     useEffect(() => {
         if (savedMovies.length === 0) {
-            setFirstLogin(true)
+            setFirstLogin(true);
         } else {
-            setFirstLogin(false)
+            setFirstLogin(false);
         }
-        filter(searchedMovie, isCheck, savedMovies)
-    }, [filter, savedMovies, isCheck, searchedMovie])
+        setFilteredMovies(filterMovies(savedMovies, searchedMovie, isCheck));
+    }, [savedMovies, filterMovies, searchedMovie, isCheck]);
 
-    function filterShort() {
-        if (isCheck) {
-            setIsCheck(false)
-            setFirstLogin(false)
-            filter(searchedMovie, false, savedMovies)
-        } else {
-            setIsCheck(true)
-            setFirstLogin(false)
-            filter(searchedMovie, true, savedMovies)
-        }
-    }
+
+
 
     return (
         <>
@@ -54,11 +54,11 @@ export default function SavedMovies({ onDelete, savedMovies, setIsError }) {
             <main className='saved-movies'>
                 <SearchForm
                     isCheck={isCheck}
-                    searchMovies={searchMovies}
+                    searchMovies={handleSearchMovies}
                     searchedMovie={searchedMovie}
                     savedMovies={savedMovies}
                     movies={savedMovies}
-                    filterShort={filterShort}
+                    filterShort={toggleFilterShort}
                     setIsCheck={setIsCheck}
                     setIsError={setIsError}
                 />

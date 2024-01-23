@@ -24,7 +24,6 @@ export default function Input({ isEdit, isInputValid, title, name, type, error, 
                         onChange={onChange}
                         disabled={isSend}
                         pattern={pattern}
-                        autoComplete='on'
 
                     />
                     <span className='input__error'>{error}</span>

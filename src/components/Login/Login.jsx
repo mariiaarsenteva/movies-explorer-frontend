@@ -3,16 +3,16 @@ import SectionAuth from "../SectionAuth/SectionAuth";
 import { emailRegex } from "../../utils/constants";
 import useFormValidation from "../../utils/useFormValidation/useFormValidation";
 
-export default function Login({onLogin, name }) {
+export default function Login({ handleLogin, name }) {
     const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
-  
-    function onSubmit(evt) {
+
+    function onLogin(evt) {
         evt.preventDefault()
-        onLogin(values.email, values.password )
-      }
-  
+        handleLogin(values.email, values.password)
+    }
+
     return (
-        <SectionAuth name={name} isValid = {isValid} onSubmit={onSubmit}>
+        <SectionAuth name={name} isValid={isValid} onSubmit={onLogin}>
             <Input
                 name='email'
                 type='email'
