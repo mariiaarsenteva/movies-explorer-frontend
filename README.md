@@ -14,4 +14,4 @@
 
 ## Ссылка на пулреквест
 
-- https://github.com/mariiaarsenteva/movies-explorer-frontend/pull/2
+- [https://github.com/mariiaarsenteva/movies-explorer-frontend/pull/2](https://github.com/mariiaarsenteva/movies-explorer-frontend/pull/3)https://github.com/mariiaarsenteva/movies-explorer-frontend/pull/3
