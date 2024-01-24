@@ -37,15 +37,16 @@ export default function App() {
   const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
 
 
-
+// useEffect для инициализации пользователя
   useEffect(() => {
     const handleInitialUser = async () => {
       try {
+         // Проверяем, авторизован ли пользователь
         if (localStorage.jwt) {
-          const [userData, movieData] = await Promise.all([
-            apiMain.getUserInfo(localStorage.jwt),
-            apiMain.getMovies(localStorage.jwt)
-          ]);
+           // Получаем информацию о пользователе и фильмах
+           const userData = await apiMain.getUserInfo(localStorage.jwt);
+           const movieData = await apiMain.getMovies(localStorage.jwt);
+          // Обновляем состояния
           setSavedMovies(movieData.reverse());
           setCurrentUser(userData);
           setLoggedIn(true);
@@ -80,6 +81,7 @@ export default function App() {
     [setCurrentUser, setIsEdit, setIsError, setIsSend]
   );
 
+    // Функция для убирания фильма из сохраненных
   const handleDislikeMovie = useCallback((deletemovieId) => {
     apiMain.removeMovie(deletemovieId, localStorage.jwt)
       .then(() => {
@@ -88,6 +90,7 @@ export default function App() {
       .catch((err) => console.error(`Ошибка при удалении фильма ${err}`));
   }, [savedMovies]);
 
+  // Функция для добавления фильма в сохраненные
   const handleLikeMovie = useCallback((data) => {
     const isLiked = savedMovies.some(movie => data.id === movie.movieId);
     if (isLiked) {
