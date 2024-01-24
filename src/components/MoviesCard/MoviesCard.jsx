@@ -27,10 +27,21 @@ export default function MoviesCard({ data, addMovie, onDelete, savedMovies }) {
         }
     }
 
-    function convertTime(duration) {
-        const minutes = duration % 60;
+
+    function getHours(duration) {
         const hours = Math.floor(duration / 60);
-        return (hours === 0 ? `${minutes}м` : minutes === 0 ? `${hours}ч` : `${hours}ч${minutes}м`)
+        return hours;
+    }
+    
+    function getMinutes(duration) {
+        const minutes = duration % 60;
+        return minutes;
+    }
+    
+    function convertTime(duration) {
+        const hours = getHours(duration);
+        const minutes = getMinutes(duration);
+        return (hours === 0 ? minutes + 'м' : minutes === 0 ? hours + 'ч' : hours + 'ч' + minutes + 'м')
     }
 
     return (

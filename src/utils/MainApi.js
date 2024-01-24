@@ -8,10 +8,6 @@ class MainApi {
         return res.ok ? res.json() : Promise.reject(res.status)
     }
 
-    // _request(url, options) {
-    //     return fetch(`${this._url}${url}`, options)
-    //         .then(this._checkResponse)
-    // }
 
     getUserInfo(token) {
         return fetch(`${this._url}/users/me`, {

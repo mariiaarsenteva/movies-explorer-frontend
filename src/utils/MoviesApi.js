@@ -1,4 +1,3 @@
-// import {baseUrl} from "./constants.js"
 
 class MoviesApi {
     constructor( options ) {

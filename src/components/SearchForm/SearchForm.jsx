@@ -6,7 +6,7 @@ import useFormValidation from '../../utils/useFormValidation/useFormValidation'
 
 
 
-export default function SearchForm({ savedMovies, searchedMovie, searchMovies, setIsError, isCheck, filterShort }) {
+export default function SearchForm({ savedMovies, searchMovies, isCheck, filterShort }) {
 
     const { pathname } = useLocation()
     const { values,  handleChange } = useFormValidation()
@@ -27,7 +27,7 @@ export default function SearchForm({ savedMovies, searchedMovie, searchMovies, s
                         className='search__input'
                         value={values.search || ''}
                         onChange={(evt) => handleChange(evt)}
-                        disabled={savedMovies ? (savedMovies.length === 0 && true) : false}
+                        disabled={savedMovies ? (savedMovies.length > 0 && true) : false}
                         required />
                     <button className={`search__button ${savedMovies ? (pathname === '/saved-movies' && savedMovies.length === 0) && 'search__button_disabled' : ''}`}>Найти</button>
                 </form>

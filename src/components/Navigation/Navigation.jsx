@@ -15,13 +15,15 @@ export default function Navigation({ loggedIn }) {
     setIsOpen(false)
   }
 
-  useEffect(() => {
-    function closeBurgerForResize() {
-      if (document.documentElement.clientWidth > "767") {
-        setIsOpen(false);
-        window.removeEventListener("resize", closeBurgerForResize);
-      }
+
+  function closeBurgerForResize() {
+    if (document.documentElement.clientWidth > "767") {
+      setIsOpen(false);
+      window.removeEventListener("resize", closeBurgerForResize);
     }
+  }
+  
+  useEffect(() => {
     if (isOpen) {
       window.addEventListener("resize", closeBurgerForResize);
       return () => window.removeEventListener("resize", closeBurgerForResize);
