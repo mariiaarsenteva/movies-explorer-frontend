@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.movie:hover .movie__save_delete{
+  display: block;
+}
+
 .movie__poster {
   width: 270px;
   height: 151px;
@@ -91,6 +95,7 @@
 }
 
 .movie__save_delete {
+  display: none;
   background-image: url(../../images/delete-like.svg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -103,6 +108,7 @@
   border-radius: 36px;
   transition: opacity 0.2s linear;
 }
+
 
 .movie__save:hover {
   opacity: 0.8; 

@@ -1,7 +1,7 @@
 
 class MoviesApi {
     constructor( options ) {
-        this._url = options.baseUrl;
+        this._url = options.BaseUrl;
     }
 
     _checkResponse(res) {
@@ -22,7 +22,7 @@ class MoviesApi {
 //создаем экземпляр класса Api
 
 const apiMovies = new MoviesApi({
-    baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+    BaseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
     //'https://api.nomoreparties.co/beatfilm-movies'//
 });
 

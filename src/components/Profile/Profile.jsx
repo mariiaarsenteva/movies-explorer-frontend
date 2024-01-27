@@ -2,19 +2,21 @@ import './Profile.css'
 import Form from '../Form/Form'
 import Input from '../Input/Input'
 import { Link } from 'react-router-dom'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import useFormValidation from '../../utils/useFormValidation/useFormValidation'
-import { emailRegex } from '../../utils/constants'
+import { EmailRegex } from '../../utils/constants'
+import Header from '../Header/Header'
 
 export default function Profile({
   onLogout,
   isEdit,
   setIsEdit,
-  editUserData
+  editUserData,isSuccess
 }) {
   const currentUser = useContext(CurrentUserContext)
- 
+  const [isDataChanged, setIsDataChanged] = useState(false);
+
   const { values, errors, isValid, isInputValid, handleChange, reset, setValue } = useFormValidation()
 
   useEffect(()=>{
@@ -29,14 +31,15 @@ export default function Profile({
 
   useEffect(() => {
     if (values.username !== currentUser.name || values.email !== currentUser.email) {
-      setIsEdit(true);
+      setIsDataChanged(true);
     } else {
-      setIsEdit(false);
+      setIsDataChanged(false);
     }
-  }, [values.username, values.email, currentUser.name, currentUser.email, setIsEdit]);
+  }, [values.username, values.email, currentUser.name, currentUser.email]);
 
   return (
-  
+  <>
+  <Header />
       <section className='profile'>
         <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
         <Form
@@ -46,6 +49,9 @@ export default function Profile({
           values={values}
           setIsEdit={setIsEdit}
           isEdit={isEdit}
+          isSuccess={isSuccess}
+          isDataChanged={isDataChanged} 
+        
         >
           <Input
           
@@ -60,6 +66,7 @@ export default function Profile({
             onChange={handleChange}
             isInputValid={isInputValid.username}
             isEdit={isEdit}
+            
           />
           <Input
         
@@ -71,7 +78,7 @@ export default function Profile({
             error={errors.email}
             onChange={handleChange}
             isInputValid={isInputValid.email}
-            pattern={emailRegex}
+            pattern={EmailRegex}
             isEdit={isEdit}
           />
         </Form>
@@ -79,6 +86,6 @@ export default function Profile({
           Выйти из аккаунта
         </Link>
       </section>
-   
+      </>
   )
 }

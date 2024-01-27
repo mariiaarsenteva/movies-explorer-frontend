@@ -15,7 +15,7 @@ import { login, registration, } from "../utils/auth.js"
 import apiMain from "../utils/MainApi.js";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx"
 import ProtectedPage from "./ProtectedPage/ProtectedPage.jsx"
-import Preloader from "../components/Preloader/Preloader.js"
+import Preloader from "../components/Preloader/Preloader.jsx"
 
 import SendContext from "../contexts/SendContext.js";
 import ErrorContext from "../contexts/ErrorContext.js";
@@ -35,6 +35,8 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState({}) //объект текущего юзера
   const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
+const [isSuccess, setIsSuccess] = useState(false)
+
 
 
 // useEffect для инициализации пользователя
@@ -69,13 +71,16 @@ export default function App() {
     apiMain.setUserInfo(username, email, localStorage.jwt)
       .then((res) => {
         setCurrentUser(res);
-        setIsEdit(false);
+        setIsEdit(true);
         setIsSend(false);
+        setIsSuccess(true);
+        
       })
       .catch((err) => {
         setIsError(true);
         console.error(`Ошибка при редактировании данных пользователя ${err}`);
         setIsSend(false);
+        setIsSuccess(false);
       });
   },
     [setCurrentUser, setIsEdit, setIsError, setIsSend]
@@ -173,7 +178,7 @@ export default function App() {
 
                 <Route path="/" element={
                   <>
-                    <Header name="home" />
+                    <Header name="home"  loggedIn={loggedIn}/>
                     <Main name="home" />
                     <Footer />
                   </>
@@ -213,6 +218,7 @@ export default function App() {
                     setIsEdit={setIsEdit}
                     isEdit={isEdit}
                     setIsError={setIsError}
+                    isSuccess ={isSuccess}
                   />
 
                 } />

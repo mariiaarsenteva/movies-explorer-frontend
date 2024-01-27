@@ -16,7 +16,7 @@ import {
   StepSmallScreen
 } from "../../utils/constants";
 
-export default function MoviesCardList({ movies, isLoading, savedMovies, serverError, firstLogin, addMovie, onDelete }) {
+export default function MoviesCardList({ movies, isLoading, savedMovies, searchInput, serverError, firstLogin, addMovie, onDelete }) {
   const { pathname } = useLocation();
   const [count, setCount] = useState('');
   const isMoviePath = pathname === '/movies';
@@ -80,15 +80,18 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, serverE
                   onDelete={onDelete}
                 />
               )
-              ) : (serverError ?
+                ) : serverError ?
                 '«Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз»'
-                : (firstLogin
-                  ? isMoviePath
-                    ? '«Выполните поиск, чтобы увидеть список фильмов»'
-                    : '«Вы еще ничего не сохранили»'
-                  : '«Ничего не найдено»'
-                ))
-
+               
+                    : (firstLogin && isMoviePath
+                      ? '«Выполните поиск, чтобы увидеть список фильмов»'
+                      : (isMoviePath
+                        ? '«Ничего не найдено»'
+                        : '«Вы еще ничего не сохранили»'
+                      )
+                    )
+                  
+                
             )))
         }</ul>
 

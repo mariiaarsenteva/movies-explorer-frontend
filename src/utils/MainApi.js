@@ -1,6 +1,6 @@
 class MainApi {
     constructor(options) {
-        this._url = options.baseUrl;
+        this._url = options.BaseUrl;
     }
 
 
@@ -75,7 +75,7 @@ class MainApi {
 //создаем экземпляр класса Api
 
 const apiMain = new MainApi({
-    baseUrl: 'https://api.mariia.movies.nomoredomainsrocks.ru',
+    BaseUrl: 'http://localhost:3001',
     // api.mariia.movies.nomoredomainsrocks.ru
 });
 

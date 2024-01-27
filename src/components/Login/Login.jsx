@@ -1,6 +1,6 @@
 import Input from "../Input/Input";
 import SectionAuth from "../SectionAuth/SectionAuth";
-import { emailRegex } from "../../utils/constants";
+import { EmailRegex } from "../../utils/constants";
 import useFormValidation from "../../utils/useFormValidation/useFormValidation";
 
 export default function Login({ handleLogin, name }) {
@@ -22,7 +22,7 @@ export default function Login({ handleLogin, name }) {
                 error={errors.email}
                 onChange={handleChange}
                 isInputValid={isInputValid.email}
-                pattern={emailRegex}
+                pattern={EmailRegex}
             />
             <Input
                 name='password'

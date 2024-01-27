@@ -9,15 +9,16 @@ import apiMovies from '../../utils/MoviesApi';
 
 
 
-export default function Movies({ setIsError, addMovie, savedMovies }) {
+export default function Movies({ setIsError, addMovie,  savedMovies }) {
 
   const [allMovies, setAllMovies] = useState([])
   const [filteredMovies, setFilteredMovies] = useState([])
   const [searchedMovie, setSearchedMovie] = useState('')
-  const [isCheck, setIsCheck] = useState(true)
+  const [isCheck, setIsCheck] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [firstLogin, setFirstLogin] = useState(true)
   const [serverError, setServerError] = useState(false)
+
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -30,8 +31,8 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
           setServerError(false);
           filterMovies(localStorage.movie, JSON.parse(localStorage.shorts), res);
         } catch (err) {
-          setServerError(true);
-          console.error(`Ошибка при поске фильмов ${err}`);
+          setServerError(false);
+          console.error(`Ошибка при поиске фильмов ${err}`);
         } finally {
           setIsLoading(false);
         }
@@ -92,6 +93,9 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
       localStorage.setItem('shorts', JSON.stringify(true));
     }
   };
+  
+
+
 
   return (
     <>
@@ -100,11 +104,13 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
       <main className='movies'>
         <SearchForm name='movies'
           isCheck={isCheck}
+          setIsCheck={setIsCheck}
           searchMovies={searchMovies}
           searchedMovie={searchedMovie}
-          filterShort={toggleFilterShort}
+          // filterShort={toggleFilterShort}
           setIsError={setIsError}
           movies={allMovies}
+          toggleFilterShort={toggleFilterShort}
         />
         <MoviesCardList
           movies={filteredMovies}

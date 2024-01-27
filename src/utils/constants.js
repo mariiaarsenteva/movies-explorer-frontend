@@ -1,7 +1,7 @@
-export const emailRegex = "\\S+@\\S+\\.\\S+$";
+export const EmailRegex = "\\S+@\\S+\\.\\S+$";
 
 
-export const baseUrl =
+export const BaseUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3001'
     : ' https://api.mariia.movies.nomoredomainsrocks.ru';

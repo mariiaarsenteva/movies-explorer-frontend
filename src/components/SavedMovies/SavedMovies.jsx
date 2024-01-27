@@ -14,10 +14,10 @@ export default function SavedMovies({ onDelete, savedMovies, setIsError }) {
     const [isCheck, setIsCheck] = useState(false)
     const [firstLogin, setFirstLogin] = useState(true)
 
-    const filterMovies = useCallback((movies, search, check) => {
+    const filterMovies = useCallback((movies, search, isCheck) => {
         return movies.filter((movie) => {
             const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase());
-            return check ? (searchName && movie.duration <= 40) : searchName;
+            return isCheck ? (searchName && movie.duration <= 40) : searchName;
         });
     }, []);
 
@@ -58,7 +58,7 @@ export default function SavedMovies({ onDelete, savedMovies, setIsError }) {
                     searchedMovie={searchedMovie}
                     savedMovies={savedMovies}
                     movies={savedMovies}
-                    filterShort={toggleFilterShort}
+                    toggleFilterShort={toggleFilterShort}
                     setIsCheck={setIsCheck}
                     setIsError={setIsError}
                 />

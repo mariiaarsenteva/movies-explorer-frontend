@@ -1,7 +1,7 @@
 import Input from "../Input/Input";
 import SectionAuth from "../SectionAuth/SectionAuth";
 import useFormValidation from "../../utils/useFormValidation/useFormValidation"
-import { emailRegex } from "../../utils/constants"
+import { EmailRegex } from "../../utils/constants"
 
 export default function Register({ name, handleRegister }) {
 
@@ -11,6 +11,7 @@ export default function Register({ name, handleRegister }) {
     evt.preventDefault()
     handleRegister(values.username, values.email, values.password)
   }
+
 
   return (
     <SectionAuth name={name} isValid={isValid} onSubmit={onRegister} >
@@ -37,7 +38,7 @@ export default function Register({ name, handleRegister }) {
         error={errors.email}
         onChange={handleChange}
         isInputValid={isInputValid.email}
-        pattern={emailRegex}
+        pattern={EmailRegex}
       />
       <Input
         name='password'

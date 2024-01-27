@@ -1,13 +1,13 @@
 // const baseUrl = 'http://api.mariia.movies.nomoredomainsrocks.ru'
 
-import {baseUrl} from "./constants.js"
+import {BaseUrl} from "./constants.js"
 
 function getResData(res) {
   return res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)
 }
 
 export function registration(username, email, password) {
-  return fetch(`${baseUrl}/signup`, {
+  return fetch(`${BaseUrl}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ export function registration(username, email, password) {
 }
 
 export function login(email, password) {
-  return fetch(`${baseUrl}/signin`, {
+  return fetch(`${BaseUrl}/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export function login(email, password) {
 }
 
 export function checkToken(token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${BaseUrl}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

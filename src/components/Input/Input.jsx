@@ -35,7 +35,7 @@ export default function Input({ isEdit, isInputValid, title, name, type, error, 
                         <span className='profile__subtitle'>{title}</span>
                         <input
                             required
-                            className={`profile__input ${isInputValid === undefined || isInputValid ? '' : 'profile__input_invaid'}`}
+                            className={`profile__input ${ isInputValid ? '' : 'profile__input_invaid'}`}
                             type={type}
                             name={name}
                             minLength={minLength || ''}
