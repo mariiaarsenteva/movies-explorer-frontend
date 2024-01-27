@@ -30,7 +30,7 @@ export default function Form({ isValid, children, isDataChanged, onSubmit, isEdi
           <button
             type="submit"
             className={`login__submit ${isValid  ? '' : 'login__submit_disabled'}`}
-            disabled={!isValid || isSend || isError}
+            disabled={!isValid || isSend }
           >{isSend ? '' : 'Войти'}</button>
         </>
         :
