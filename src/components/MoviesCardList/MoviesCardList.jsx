@@ -16,11 +16,12 @@ import {
   StepSmallScreen
 } from "../../utils/constants";
 
-export default function MoviesCardList({ movies, isLoading, savedMovies, searchInput, serverError, firstLogin, addMovie, onDelete }) {
+export default function MoviesCardList({ movies, isLoading, savedMovies, searchMovies, handleSearch, searchInput, serverError, firstLogin, addMovie, onDelete }) {
   const { pathname } = useLocation();
   const [count, setCount] = useState('');
   const isMoviePath = pathname === '/movies';
   const isSavedMoviePath = pathname === '/saved-movies';
+  // const [isSearched, setIsSearched] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,59 +54,61 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
     ));
   };
 
+  // const handleSearch = (searchTerm) => {
+  //   if (searchTerm && !isSearched) {
+  //     searchMovies(searchInput);
+  //     setIsSearched(true);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (searchInput) {
+  //     handleSearch(searchInput);
+  //   }
+  // }, [searchInput]);
+
+
   return (
-    <section className='cards'>
-      <ul className='cards__lists'>
-        {isLoading ? (
-          <Preloader />
-        ) : (
-          (isMoviePath && movies.length > 0
-            ? movies
-              .slice(0, count)
-              .map(data => (
-                <MoviesCard
-                  key={data.id}
-                  data={data}
-                  savedMovies={savedMovies}
-                  addMovie={addMovie}
-
-                />
-              ))
-            : (isSavedMoviePath && movies.length > 0
-              ? movies.map(data => (
-
-                <MoviesCard
-                  key={data._id}
-                  data={data}
-                  onDelete={onDelete}
-                />
-              )
-                ) : serverError ?
-                '«Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз»'
-               
-                    : (firstLogin && isMoviePath
-                      ? '«Выполните поиск, чтобы увидеть список фильмов»'
-                      : (isMoviePath
-                        ? '«Ничего не найдено»'
-                        : '«Вы еще ничего не сохранили»'
-                      )
-                    )
-                  
-                
-            )))
-        }</ul>
-
-      {isMoviePath && (
+    <section className="cards">
+      {isLoading && <Preloader />}
+      {!isLoading && !serverError && (
+        <ul className="cards__lists">
+          {isMoviePath && movies.length > 0 && movies.slice(0, count).map(data => (
+            <MoviesCard
+              key={data.id}
+              data={data}
+              savedMovies={savedMovies}
+              addMovie={addMovie}
+              onDelete={onDelete}
+            />
+          ))}
+          {isMoviePath && !isLoading && movies.length === 0 && (
+            <p>{'Ничего не найдено'}</p>
+          )}
+          {isSavedMoviePath && movies.length > 0 && movies.map(data => (
+            <MoviesCard
+              key={data._id}
+              data={data}
+              onDelete={onDelete}
+            />
+          ))}
+          {isSavedMoviePath && !isLoading && movies.length === 0 && (
+            <p>Вы еще ничего не сохранили</p>
+          )}
+        </ul>
+      )}
+      {!isLoading && serverError && (
+        <p>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p>
+      )}
+      {isMoviePath && !isLoading && movies.length > count && (
         <button
           className={`cards__button ${count >= movies.length ? 'cards__button_hidden' : ''}`}
-          type='button'
+          type="button"
           onClick={handleMoreButtonClick}
         >
           Ещё
         </button>
       )}
-
     </section>
   );
-
 }

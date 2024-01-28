@@ -113,3 +113,9 @@
 .movie__save:hover {
   opacity: 0.8; 
 }
+
+@media screen and (max-width: 520px) {
+  .movie__save_delete {
+    display: block;
+  }
+}

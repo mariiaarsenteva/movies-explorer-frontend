@@ -37,9 +37,9 @@ export default function Movies({ setIsError, addMovie,  savedMovies }) {
           setIsLoading(false);
         }
       } else {
-        const movies = JSON.parse(localStorage.allmovies);
-        const shorts = JSON.parse(localStorage.shorts);
-        const movie = JSON.parse(localStorage.movie);
+        const movies = localStorage.allmovies ? JSON.parse(localStorage.allmovies) : [];
+        const shorts = localStorage.shorts ? JSON.parse(localStorage.shorts) : [];
+        const movie = localStorage.movie ? JSON.parse(localStorage.movie) : '';
         setServerError(false);
         setSearchedMovie(movie);
         setIsCheck(shorts);
@@ -49,6 +49,19 @@ export default function Movies({ setIsError, addMovie,  savedMovies }) {
       }
     }
     fetchMovies();
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.searchedMovie && localStorage.isCheck && localStorage.allMovies) {
+      const searchedMovieFromStorage = localStorage.searchedMovie;
+      const isCheckFromStorage = localStorage.isCheck === 'true';
+      const allMoviesFromStorage = JSON.parse(localStorage.allMovies);
+
+      setSearchedMovie(searchedMovieFromStorage);
+      setIsCheck(isCheckFromStorage);
+      
+      filterMovies(searchedMovieFromStorage, isCheckFromStorage, allMoviesFromStorage);
+    }
   }, []);
 
   const filterMovies = (search, isCheck, movies) => {

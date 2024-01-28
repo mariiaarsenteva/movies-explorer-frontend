@@ -86,6 +86,15 @@ const [isSuccess, setIsSuccess] = useState(false)
     [setCurrentUser, setIsEdit, setIsError, setIsSend]
   );
 
+  // const cancelEdit = () => {
+  //   // Возвращаем профиль к предыдущему состоянию
+  //   setCurrentUser({ ...currentUser });
+  //   setIsEdit(false);
+  // };
+  const setSuccess = useCallback(() => {
+    setIsSuccess(false)
+  }, [])
+
     // Функция для убирания фильма из сохраненных
   const handleDislikeMovie = useCallback((deletemovieId) => {
     apiMain.removeMovie(deletemovieId, localStorage.jwt)
@@ -117,7 +126,13 @@ const [isSuccess, setIsSuccess] = useState(false)
       .then((res) => {
         if (res) {
           setLoggedIn(false)
-          handleLogin(email, password) //логин сразу после регистрации 
+          login(email, password)
+          .then(res => {
+            localStorage.setItem('jwt', res.token)
+            setLoggedIn(true)
+            navigate('/movies')
+            window.scrollTo(0, 0)
+          }) //логин сразу после регистрации 
             .catch((error) => {
               setIsError(true)
               console.error(`Ошибка при авторизации после регистрации ${error}`)
@@ -150,6 +165,8 @@ const [isSuccess, setIsSuccess] = useState(false)
 
   function handleLogout() {
     localStorage.clear()
+    localStorage.removeItem('movie');
+  localStorage.removeItem('shorts');
     setLoggedIn(false)
     navigate('/')
   }
@@ -165,14 +182,14 @@ const [isSuccess, setIsSuccess] = useState(false)
                 <Route path="/signin"
                   element={
                     loggedIn ? <Navigate to='/movies' replace /> :
-                      <Login name="signin" handleLogin={handleLogin} />
+                      <Login name="signin" handleLogin={handleLogin} setIsError={setIsError} />
                   }
                 />
 
                 <Route path="/signup"
                   element={
                     loggedIn ? <Navigate to='/movies' replace /> :
-                      <Register name="signup" handleRegister={handleRegister} />
+                      <Register name="signup" handleRegister={handleRegister} setIsError={setIsError}/>
                   }
                 />
 
@@ -219,6 +236,7 @@ const [isSuccess, setIsSuccess] = useState(false)
                     isEdit={isEdit}
                     setIsError={setIsError}
                     isSuccess ={isSuccess}
+                    setSuccess={setSuccess}
                   />
 
                 } />

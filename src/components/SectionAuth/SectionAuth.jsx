@@ -4,13 +4,13 @@ import Form from '../Form/Form'
 import { useLocation } from 'react-router-dom';
 
 
-export default function SectionAuth ({children, name, onSubmit, isValid}) {
+export default function SectionAuth ({children, name, onSubmit, isValid, setIsError }) {
   const { pathname } = useLocation()
   return (
     <section className='login'>
       <Link to={'/'} className="login__logo"></Link>
       <h1 className='login__title'>{pathname === '/signin' ? 'Рады видеть!' : 'Добро пожаловать!'}</h1>
-      <Form name={name} isValid = {isValid} onSubmit={onSubmit}>
+      <Form name={name} isValid = {isValid} onSubmit={onSubmit} setIsError={setIsError}>
         {children}
       </Form>
       {pathname === '/signin' ?

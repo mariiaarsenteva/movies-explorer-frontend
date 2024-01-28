@@ -3,7 +3,7 @@ import SectionAuth from "../SectionAuth/SectionAuth";
 import useFormValidation from "../../utils/useFormValidation/useFormValidation"
 import { EmailRegex } from "../../utils/constants"
 
-export default function Register({ name, handleRegister }) {
+export default function Register({ name, handleRegister, setIsError  }) {
 
   const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
 
@@ -14,7 +14,7 @@ export default function Register({ name, handleRegister }) {
 
 
   return (
-    <SectionAuth name={name} isValid={isValid} onSubmit={onRegister} >
+    <SectionAuth name={name} isValid={isValid} onSubmit={onRegister} setIsError={setIsError} >
       <Input
         name='username'
         type='text'
@@ -24,7 +24,10 @@ export default function Register({ name, handleRegister }) {
         placeholder='Введите ваше имя'
         value={values.username}
         error={errors.username}
-        onChange={handleChange}
+        onChange={(evt) => {
+          handleChange(evt)
+          setIsError(false)
+        }}
         isInputValid={isInputValid.username}
 
 
@@ -36,7 +39,10 @@ export default function Register({ name, handleRegister }) {
         placeholder='Введите вашу электронную почту'
         value={values.email}
         error={errors.email}
-        onChange={handleChange}
+        onChange={(evt) => {
+          handleChange(evt)
+          setIsError(false)
+        }}
         isInputValid={isInputValid.email}
         pattern={EmailRegex}
       />
@@ -49,7 +55,10 @@ export default function Register({ name, handleRegister }) {
         placeholder='Введите ваш пароль'
         value={values.password}
         error={errors.password}
-        onChange={handleChange}
+        onChange={(evt) => {
+          handleChange(evt)
+          setIsError(false)
+        }}
         isInputValid={isInputValid.password}
       />
     </SectionAuth>

@@ -12,7 +12,7 @@ export default function Profile({
   onLogout,
   isEdit,
   setIsEdit,
-  editUserData,isSuccess
+  editUserData,isSuccess, setSuccess, setIsError
 }) {
   const currentUser = useContext(CurrentUserContext)
   const [isDataChanged, setIsDataChanged] = useState(false);
@@ -51,6 +51,8 @@ export default function Profile({
           isEdit={isEdit}
           isSuccess={isSuccess}
           isDataChanged={isDataChanged} 
+          setIsError={setIsError}
+          setSuccess={setSuccess}
         
         >
           <Input

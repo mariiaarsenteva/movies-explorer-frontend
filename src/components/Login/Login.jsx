@@ -3,7 +3,7 @@ import SectionAuth from "../SectionAuth/SectionAuth";
 import { EmailRegex } from "../../utils/constants";
 import useFormValidation from "../../utils/useFormValidation/useFormValidation";
 
-export default function Login({ handleLogin, name }) {
+export default function Login({ handleLogin, setIsError, name }) {
     const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
 
     function onLogin(evt) {
@@ -12,7 +12,7 @@ export default function Login({ handleLogin, name }) {
     }
 
     return (
-        <SectionAuth name={name} isValid={isValid} onSubmit={onLogin}>
+        <SectionAuth name={name} isValid={isValid} onSubmit={onLogin}  setIsError={setIsError}>
             <Input
                 name='email'
                 type='email'
@@ -20,7 +20,10 @@ export default function Login({ handleLogin, name }) {
                 placeholder='Введите вашу электронную почту'
                 value={values.email}
                 error={errors.email}
-                onChange={handleChange}
+                onChange={(evt) => {
+                    handleChange(evt)
+                    setIsError(false)
+                  }}
                 isInputValid={isInputValid.email}
                 pattern={EmailRegex}
             />
@@ -32,7 +35,10 @@ export default function Login({ handleLogin, name }) {
                 placeholder='Введите ваш пароль'
                 value={values.password}
                 error={errors.password}
-                onChange={handleChange}
+                onChange={(evt) => {
+                    handleChange(evt)
+                    setIsError(false)
+                  }}
                 isInputValid={isInputValid.password}
             />
 
