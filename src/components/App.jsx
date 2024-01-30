@@ -123,13 +123,7 @@ const [isSuccess, setIsSuccess] = useState(false)
       .then((res) => {
         if (res) {
           setLoggedIn(false)
-          login(email, password)
-          .then(res => {
-            localStorage.setItem('jwt', res.token)
-            setLoggedIn(true)
-            navigate('/movies')
-            window.scrollTo(0, 0)
-          })//логин сразу после регистрации 
+          handleLogin(email, password) //логин сразу после регистрации 
             .catch((error) => {
               setIsError(true)
               console.error(`Ошибка при авторизации после регистрации ${error}`)
