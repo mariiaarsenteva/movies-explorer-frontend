@@ -22,7 +22,8 @@ export default function Profile({
   useEffect(()=>{
     setValue('username', currentUser.name)
     setValue('email', currentUser.email)
-},[currentUser, setValue, isEdit])
+  },[currentUser, setValue, isEdit])
+
 
   function onSubmit(evt) {
     evt.preventDefault()

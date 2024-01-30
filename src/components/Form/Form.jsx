@@ -60,7 +60,7 @@ export default function Form({ isValid, children, isDataChanged, onSubmit, isEdi
               <button
                 type="submit"
                 className={`login__submit ${(values.username === currentUser.name && values.email === currentUser.email) || !isValid || isError ? 'login__submit_disabled' : ''}`}
-                disabled={!isValid || isSend || isError }
+                disabled={!isDataChanged || !isValid || isSend || isError }
               >{isSend ? '' : 'Сохранить'}</button>
               
               <button

@@ -8,7 +8,7 @@ import SavedMovies from './SavedMovies/SavedMovies.jsx'
 import Profile from "./Profile/Profile.jsx"
 import Error from './Error/Error.jsx'
 import React, { useState, useEffect, useCallback } from "react";
-import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate, useLocation } from "react-router-dom";
 import "../components/App.css";
 import { login, registration, } from "../utils/auth.js"
 
@@ -24,6 +24,8 @@ import CurrentUserContext from "../contexts/CurrentUserContext.js"
 export default function App() {
   const navigate = useNavigate()
 
+  const { pathname } = useLocation()
+
   // стейты пользователя 
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSend, setIsSend] = useState(false)
@@ -36,6 +38,10 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState({}) //объект текущего юзера
   const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
 const [isSuccess, setIsSuccess] = useState(false)
+
+  useEffect(() => {
+    setIsError(false);
+  }, [pathname]);
 
 
 
@@ -117,7 +123,13 @@ const [isSuccess, setIsSuccess] = useState(false)
       .then((res) => {
         if (res) {
           setLoggedIn(false)
-          handleLogin(email, password) //логин сразу после регистрации 
+          login(email, password)
+          .then(res => {
+            localStorage.setItem('jwt', res.token)
+            setLoggedIn(true)
+            navigate('/movies')
+            window.scrollTo(0, 0)
+          })//логин сразу после регистрации 
             .catch((error) => {
               setIsError(true)
               console.error(`Ошибка при авторизации после регистрации ${error}`)

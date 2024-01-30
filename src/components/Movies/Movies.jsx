@@ -53,11 +53,13 @@ export default function Movies({ setIsError, addMovie,  savedMovies }) {
 
   const filterMovies = (search, isCheck, movies) => {
     setSearchedMovie(search);
-    localStorage.setItem('movie', JSON.stringify(search));
+    if (search !== undefined) {
+      localStorage.setItem('movie', JSON.stringify(search));
+    }
     localStorage.setItem('shorts', JSON.stringify(isCheck));
     localStorage.setItem('allmovies', JSON.stringify(movies));
     setFilteredMovies(movies.filter((movie) => {
-      const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase());
+      const searchName = movie.nameRU.toLowerCase().includes((search || '').toLowerCase());
       return isCheck ? (searchName && movie.duration <= 40) : searchName;
     }));
   };
