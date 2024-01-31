@@ -14,13 +14,16 @@ export default function SavedMovies({ onDelete, savedMovies, setIsError }) {
     const [isCheck, setIsCheck] = useState(false)
     const [firstLogin, setFirstLogin] = useState(true)
 
+
     const filterMovies = useCallback((movies, search, isCheck) => {
         return movies.filter((movie) => {
-            const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase());
-            return isCheck ? (searchName && movie.duration <= 40) : searchName;
-        });
+            if (search) {
+                return movie.nameRU && movie.nameRU.toLowerCase().includes(search.toLowerCase());
+            } else {
+                return true; 
+            }
+        }).filter(movie => isCheck ? (movie && movie.duration <= 40) : true);
     }, []);
-
     const handleSearchMovies = (search) => {
         setFirstLogin(false);
         setSearchedMovie(search);
