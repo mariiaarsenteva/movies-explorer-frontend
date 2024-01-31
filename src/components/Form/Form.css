@@ -105,10 +105,10 @@
   display: block;
   width: 100%;
   min-height: 14px;
-  margin-top: 117px;
+  /* margin-top: 117px; */
   text-align: center;
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
-  color: greenyellow;
+  color: #00db07;
 }

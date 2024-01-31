@@ -83,9 +83,12 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
                 ) : serverError ?
                 '«Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз»'
                
-                    : (firstLogin && isMoviePath
-                      ? '«Выполните поиск, чтобы увидеть список фильмов»'
-                      : (isMoviePath
+                    : 
+                    (
+                      // firstLogin && isMoviePath
+                      // ? '«Выполните поиск, чтобы увидеть список фильмов»'
+                      // : 
+                      (isMoviePath
                         ? '«Ничего не найдено»'
                         : '«Вы еще ничего не сохранили»'
                       )

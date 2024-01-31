@@ -37,7 +37,7 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState({}) //объект текущего юзера
   const [savedMovies, setSavedMovies] = useState([]) //массив фильмов
-const [isSuccess, setIsSuccess] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   useEffect(() => {
     setIsError(false);
@@ -45,15 +45,15 @@ const [isSuccess, setIsSuccess] = useState(false)
 
 
 
-// useEffect для инициализации пользователя
+  // useEffect для инициализации пользователя
   useEffect(() => {
     const handleInitialUser = async () => {
       try {
-         // Проверяем, авторизован ли пользователь
+        // Проверяем, авторизован ли пользователь
         if (localStorage.jwt) {
-           // Получаем информацию о пользователе и фильмах
-           const userData = await apiMain.getUserInfo(localStorage.jwt);
-           const movieData = await apiMain.getMovies(localStorage.jwt);
+          // Получаем информацию о пользователе и фильмах
+          const userData = await apiMain.getUserInfo(localStorage.jwt);
+          const movieData = await apiMain.getMovies(localStorage.jwt);
           // Обновляем состояния
           setSavedMovies(movieData.reverse());
           setCurrentUser(userData);
@@ -80,7 +80,7 @@ const [isSuccess, setIsSuccess] = useState(false)
         setIsEdit(true);
         setIsSend(false);
         setIsSuccess(true);
-        
+
       })
       .catch((err) => {
         setIsError(true);
@@ -92,7 +92,7 @@ const [isSuccess, setIsSuccess] = useState(false)
     [setCurrentUser, setIsEdit, setIsError, setIsSend]
   );
 
-    // Функция для убирания фильма из сохраненных
+  // Функция для убирания фильма из сохраненных
   const handleDislikeMovie = useCallback((deletemovieId) => {
     apiMain.removeMovie(deletemovieId, localStorage.jwt)
       .then(() => {
@@ -123,125 +123,137 @@ const [isSuccess, setIsSuccess] = useState(false)
       .then((res) => {
         if (res) {
           setLoggedIn(false)
-          handleLogin(email, password) //логин сразу после регистрации 
+          login(email, password)
+            .then(res => {
+              localStorage.setItem('jwt', res.token)
+              setLoggedIn(true)
+              navigate('/movies')
+              window.scrollTo(0, 0)
+            })
             .catch((error) => {
               setIsError(true)
-              console.error(`Ошибка при авторизации после регистрации ${error}`)
+              console.error(`Ошибка при авторизации ${error}`)
             })
             .finally(() => setIsSend(false))
-        }
-      })
-      .catch((error) => {
-        setIsError(true)
-        console.error(`Ошибка при регистрации ${error}`)
-      })
+         //логин сразу после регистрации 
+            .catch ((error) => {
+          setIsError(true)
+          console.error(`Ошибка при авторизации после регистрации ${error}`)
+        })
+      .finally(() => setIsSend(false))
+  }
+})
+      .catch ((error) => {
+  setIsError(true)
+  console.error(`Ошибка при регистрации ${error}`)
+})
       .finally(() => setIsSend(false))
   }
 
-  function handleLogin(email, password) {
-    setIsSend(true)
-    login(email, password)
-      .then(res => {
-        localStorage.setItem('jwt', res.token)
-        setLoggedIn(true)
-        navigate('/movies')
-        window.scrollTo(0, 0)
-      })
-      .catch((error) => {
-        setIsError(true)
-        console.error(`Ошибка при авторизации ${error}`)
-      })
-      .finally(() => setIsSend(false))
-  }
+function handleLogin(email, password) {
+  setIsSend(true)
+  login(email, password)
+    .then(res => {
+      localStorage.setItem('jwt', res.token)
+      setLoggedIn(true)
+      navigate('/movies')
+      window.scrollTo(0, 0)
+    })
+    .catch((error) => {
+      setIsError(true)
+      console.error(`Ошибка при авторизации ${error}`)
+    })
+    .finally(() => setIsSend(false))
+}
 
-  function handleLogout() {
-    localStorage.clear()
-    setLoggedIn(false)
-    navigate('/')
-  }
+function handleLogout() {
+  localStorage.clear()
+  setLoggedIn(false)
+  navigate('/')
+}
 
-  return (
-    <div className="page">
-      {isCheckToken ? <Preloader /> :
-        <CurrentUserContext.Provider value={currentUser}>
-          <SendContext.Provider value={isSend}>
-            <ErrorContext.Provider value={isError}>
+return (
+  <div className="page">
+    {isCheckToken ? <Preloader /> :
+      <CurrentUserContext.Provider value={currentUser}>
+        <SendContext.Provider value={isSend}>
+          <ErrorContext.Provider value={isError}>
 
-              <Routes>
-                <Route path="/signin"
-                  element={
-                    loggedIn ? <Navigate to='/movies' replace /> :
-                      <Login name="signin" handleLogin={handleLogin} />
-                  }
+            <Routes>
+              <Route path="/signin"
+                element={
+                  loggedIn ? <Navigate to='/movies' replace /> :
+                    <Login name="signin" handleLogin={handleLogin} />
+                }
+              />
+
+              <Route path="/signup"
+                element={
+                  loggedIn ? <Navigate to='/movies' replace /> :
+                    <Register name="signup" handleRegister={handleRegister} />
+                }
+              />
+
+              <Route path="/" element={
+                <>
+                  <Header name="home" loggedIn={loggedIn} />
+                  <Main name="home" />
+                  <Footer />
+                </>
+              } />
+
+              <Route path="/movies" element={
+                <ProtectedRoute
+                  component={Movies} name="movies"
+                  savedMovies={savedMovies}
+                  addMovie={handleLikeMovie}
+                  loggedIn={loggedIn}
+                  setIsError={setIsError}
                 />
 
-                <Route path="/signup"
-                  element={
-                    loggedIn ? <Navigate to='/movies' replace /> :
-                      <Register name="signup" handleRegister={handleRegister} />
-                  }
+              } />
+
+              <Route path="/saved-movies" element={
+                <ProtectedRoute
+                  component={SavedMovies}
+                  name="savedmovies"
+                  element={ProtectedPage}
+                  onDelete={handleDislikeMovie}
+                  savedMovies={savedMovies}
+                  loggedIn={loggedIn}
+                  setIsError={setIsError} />
+
+
+
+              } />
+
+              <Route path="/profile" element={
+                <ProtectedRoute
+                  component={Profile}
+                  loggedIn={loggedIn}
+                  onLogout={handleLogout}
+                  editUserData={editUserData}
+                  setIsEdit={setIsEdit}
+                  isEdit={isEdit}
+                  setIsError={setIsError}
+                  isSuccess={isSuccess}
                 />
 
-                <Route path="/" element={
-                  <>
-                    <Header name="home"  loggedIn={loggedIn}/>
-                    <Main name="home" />
-                    <Footer />
-                  </>
-                } />
+              } />
 
-                <Route path="/movies" element={
-                  <ProtectedRoute
-                    component={Movies} name="movies"
-                    savedMovies={savedMovies}
-                    addMovie={handleLikeMovie}
-                    loggedIn={loggedIn}
-                    setIsError={setIsError}
-                  />
-
-                } />
-
-                <Route path="/saved-movies" element={
-                  <ProtectedRoute
-                    component={SavedMovies}
-                    name="savedmovies"
-                    element={ProtectedPage}
-                    onDelete={handleDislikeMovie}
-                    savedMovies={savedMovies}
-                    loggedIn={loggedIn}
-                    setIsError={setIsError} />
+              <Route path='*' element={
+                <>
+                  <Error name='error' />
+                </>
+              } />
 
 
+            </Routes>
+          </ErrorContext.Provider>
+        </SendContext.Provider>
+      </CurrentUserContext.Provider>
+    }
+  </div>
 
-                } />
-
-                <Route path="/profile" element={
-                  <ProtectedRoute
-                    component={Profile}
-                    loggedIn={loggedIn}
-                    onLogout={handleLogout}
-                    editUserData={editUserData}
-                    setIsEdit={setIsEdit}
-                    isEdit={isEdit}
-                    setIsError={setIsError}
-                    isSuccess ={isSuccess}
-                  />
-
-                } />
-
-                <Route path='*' element={
-                  <>
-                    <Error name='error' />
-                  </>
-                } />
-
-
-              </Routes>
-            </ErrorContext.Provider>
-          </SendContext.Provider>
-        </CurrentUserContext.Provider>
-      }
-    </div>
-
-  );
+);
 }

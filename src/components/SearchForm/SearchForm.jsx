@@ -9,18 +9,24 @@ import useFormValidation from '../../utils/useFormValidation/useFormValidation'
 export default function SearchForm({ savedMovies, searchMovies, isCheck, toggleFilterShort, movies, setIsCheck }) {
 
   const { pathname } = useLocation()
+
   const { values,  handleChange } = useFormValidation()
   const [isSearchValid, setIsSearchValid] = useState(true); // Состояние для валидации формы поиска
   const [hasSearched, setHasSearched] = useState(false); // Был ли выполнение поиск 
   
   const [isFilterChecked, setIsFilterChecked] = useState(false);
 
+  const [searchInputValue, setSearchInputValue] = useState(''); // поле ввода 
+
   const handleCheckboxChange = (newValue) => {
     setIsFilterChecked(newValue);
-    const storageKey = `isFilterChecked_${pathname}`; // Добавляем префикс текущей страницы
-    localStorage.setItem(storageKey, newValue);
+    if (pathname !== "/saved-movies") { 
+      const storageKey = `isFilterChecked_${pathname}`;
+      localStorage.setItem(storageKey, JSON.stringify(newValue));
+    }
   };
 
+  // Обрабатываем поле Input
   const handleChangeInput = (evt) => {
     const name = evt.target.name
     const value = evt.target.value
@@ -29,15 +35,21 @@ export default function SearchForm({ savedMovies, searchMovies, isCheck, toggleF
   
     if (name === 'search') {
       setSearchInputValue(value); // Обновление состояния для отображения в поле ввода
-      localStorage.setItem('searchInputValue', value); // Обновление localStorage при каждом вводе
+      if (pathname !== "/saved-movies") {  
+        const storageKey = `searchInputValue_${pathname}`;
+        localStorage.setItem(storageKey, value);
+      }
     }
   };
 
-  const [searchInputValue, setSearchInputValue] = useState('')
-
+  // Сохраняем поле Input в LocalStorage
   useEffect(() => {
-    setSearchInputValue(localStorage.getItem('searchInputValue'));
-  }, [handleChange]);
+    if (pathname !== "/saved-movies") {  
+      const storageKey = `searchInputValue_${pathname}`;
+      setSearchInputValue(localStorage.getItem(storageKey) || '');
+    }
+  }, [pathname]);
+
 
   function onSubmit(evt) {
     evt.preventDefault();
@@ -47,7 +59,8 @@ export default function SearchForm({ savedMovies, searchMovies, isCheck, toggleF
       setIsSearchValid(true);
       setHasSearched(true);
       if (searchTerm && pathname === "/movies") {
-        localStorage.setItem("searchInputValue", searchTerm);
+        const storageKey = `searchInputValue_${pathname}`;
+        localStorage.setItem(storageKey, searchTerm);
       }
     } else {
       setIsSearchValid(false);
@@ -84,7 +97,7 @@ export default function SearchForm({ savedMovies, searchMovies, isCheck, toggleF
                       // Данные которые ввели, либо из LocalStorage 
                       value={values.search || searchInputValue || ''}
                       onChange={(evt) => handleChangeInput(evt)}
-                      disabled={savedMovies ? (savedMovies.length > 0 && true) : false}
+                      disabled={pathname === "/saved-movies" ? (!savedMovies.length) : false}
                       required 
                   />
                   <button className={`search__button ${savedMovies ? (pathname === '/saved-movies' && savedMovies.length === 0) && 'search__button_disabled' : ''}`}>Найти</button>

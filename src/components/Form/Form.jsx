@@ -63,11 +63,11 @@ export default function Form({ isValid, children, isDataChanged, onSubmit, isEdi
                 disabled={!isDataChanged || !isValid || isSend || isError }
               >{isSend ? '' : 'Сохранить'}</button>
               
-              <button
+              {/* <button
                 type="submit"
                 className='profile__submit'
                 onClick={() => setIsEdit(false)}
-              >Отменить редактирование</button>
+              >Отменить редактирование</button> */}
             </>
       }
     </form>
