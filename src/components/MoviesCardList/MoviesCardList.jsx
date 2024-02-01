@@ -21,7 +21,8 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
   const [count, setCount] = useState('');
   const isMoviePath = pathname === '/movies';
   const isSavedMoviePath = pathname === '/saved-movies';
-  const [isSearched, setIsSearched] = useState(true)
+  const [isSearched, setIsSearched] = useState(true);
+  // const [isSaved, setIsSaved] = useState([])
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,7 +58,7 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
   return (
     <section className='cards'>
       <ul className='cards__lists'>
-        {isLoading && !firstLogin? (
+        {isLoading && !firstLogin ? (
           <Preloader />
         ) : (
           (isMoviePath && movies.length > 0
@@ -81,24 +82,19 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
                   onDelete={onDelete}
                 />
               )
-                ) : serverError ?
+              ) : serverError ?
                 '«Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз»'
-               
-                    : 
-                    (
-                      firstLogin && isMoviePath
-                      ? ' '
-                      : isMoviePath  && isSearched
+                :
+                (
+                  firstLogin && isMoviePath
+                    ? ' '
+                    : isMoviePath && isSearched
+                      ? '«Ничего не найдено»'
+
+                      : isSavedMoviePath && isSearched
                         ? '«Ничего не найдено»'
-                       : isSavedMoviePath  && movies.length < 0
-                          ? '«Вы еще ничего не сохранили»'
-                        :  isSavedMoviePath  && isSearched
-                      ? ''
-                      : '«Ничего не найдено»'
-                    
-              
-                
-            ))))
+                        : '«Ничего не найдено»'
+                ))))
         }</ul>
 
       {isMoviePath && (
