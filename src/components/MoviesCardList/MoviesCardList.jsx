@@ -58,7 +58,7 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
   return (
     <section className='cards'>
       <ul className='cards__lists'>
-        {isLoading && !firstLogin ? (
+        {isLoading && firstLogin ? (
           <Preloader />
         ) : (
           (isMoviePath && movies.length > 0
@@ -87,12 +87,10 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
                 :
                 (
                   firstLogin && isMoviePath
-                    ? ' '
-                    : isMoviePath && isSearched
+                    ? ''
+                    : isMoviePath 
                       ? '«Ничего не найдено»'
 
-                      : isSavedMoviePath && isSearched
-                        ? '«Ничего не найдено»'
                         : '«Ничего не найдено»'
                 ))))
         }</ul>

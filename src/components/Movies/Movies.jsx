@@ -77,7 +77,38 @@ export default function Movies({ setIsError, addMovie,  savedMovies }) {
     }
   };
 
-
+  // const searchMovies = async (search) => {
+  //   setIsLoading(true);
+  
+  //   const shorts = JSON.parse(localStorage.getItem('shorts') || '[]');
+  //   const movie = JSON.parse(localStorage.getItem('movie') || '[]');
+  
+  //   try {
+  //     let movies;
+  //     // Проверяем есть ли данные в ЛС
+  //     if (!localStorage.getItem('allmovies') || !localStorage.getItem('shorts') || !localStorage.getItem('movie')) {
+  //       // Запрос на сервер
+  //       movies = await apiMovies.getMovies();
+  //       // Сохраняем в ЛС
+  //       localStorage.setItem('allmovies', JSON.stringify(movies));
+  //     } else {
+  //       // Берём данные из ЛС
+  //       movies = JSON.parse(localStorage.getItem('allmovies'));
+  //     }
+  
+  //     setSearchedMovie(movie);
+  //     setIsCheck(shorts);
+  //     setAllMovies(movies);
+  //     setFirstLogin(false);
+  //     filterMovies(search || movie, shorts, movies);
+  //     setServerError(false);
+  //   } catch (err) {
+  //     setServerError(true);
+  //     console.error(`Ошибка при поиске ${err}`);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   const filterMovies = (search, isCheck, movies) => {
     setSearchedMovie(search);
     if (search !== undefined) {
