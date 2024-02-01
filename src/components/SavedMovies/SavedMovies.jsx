@@ -24,6 +24,7 @@ export default function SavedMovies({ onDelete, savedMovies, setIsError }) {
             }
         }).filter(movie => isCheck ? (movie && movie.duration <= 40) : true);
     }, []);
+    
     const handleSearchMovies = (search) => {
         setFirstLogin(false);
         setSearchedMovie(search);

@@ -21,6 +21,7 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
   const [count, setCount] = useState('');
   const isMoviePath = pathname === '/movies';
   const isSavedMoviePath = pathname === '/saved-movies';
+  const [isSearched, setIsSearched] = useState(true)
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,7 +57,7 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
   return (
     <section className='cards'>
       <ul className='cards__lists'>
-        {isLoading ? (
+        {isLoading && !firstLogin? (
           <Preloader />
         ) : (
           (isMoviePath && movies.length > 0
@@ -85,17 +86,19 @@ export default function MoviesCardList({ movies, isLoading, savedMovies, searchI
                
                     : 
                     (
-                      // firstLogin && isMoviePath
-                      // ? '«Выполните поиск, чтобы увидеть список фильмов»'
-                      // : 
-                      (isMoviePath
+                      firstLogin && isMoviePath
+                      ? ' '
+                      : isMoviePath  && isSearched
                         ? '«Ничего не найдено»'
-                        : '«Вы еще ничего не сохранили»'
-                      )
-                    )
-                  
+                       : isSavedMoviePath  && movies.length < 0
+                          ? '«Вы еще ничего не сохранили»'
+                        :  isSavedMoviePath  && isSearched
+                      ? ''
+                      : '«Ничего не найдено»'
+                    
+              
                 
-            )))
+            ))))
         }</ul>
 
       {isMoviePath && (

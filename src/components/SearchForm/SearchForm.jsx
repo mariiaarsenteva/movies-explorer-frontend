@@ -68,11 +68,11 @@ export default function SearchForm({ savedMovies, searchMovies, isCheck, toggleF
   }
 
   // Выполняем запрос только если поиск был выполнен или изменён чекбокс 
-  useEffect(() => {
-    if (hasSearched || isCheck) {
-      searchMovies(searchInputValue || values.search);
-    }
-  }, [hasSearched, searchMovies, searchInputValue, values.search]);
+  // useEffect(() => {
+  //   if (hasSearched || isCheck) {
+  //     searchMovies(searchInputValue || values.search);
+  //   }
+  // }, [hasSearched, searchMovies, searchInputValue, values.search]);
 
   function changeCheckbox() {
     if (isCheck) {
