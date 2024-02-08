@@ -122,12 +122,13 @@
   line-height: normal;
   border: none;
   outline: none;
+  background-color: transparent;
 }
 
-.profile__input_invaid {
-  color: #ee3465;
-  border-bottom-color: 1px solid #ee3465;
-}
+/* .profile__input_invaid { */
+  /* color: #ee3465; */
+  /* border-bottom: 1px solid #ee3465; */
+/* } */
 
 .profile__error{
   display: block;
